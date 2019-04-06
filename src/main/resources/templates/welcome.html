@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8"/>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dialog.css" />
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css"/>
+
+    <script type="text/javascript">
+        function change() {
+            $.ajax({
+                url: "/getteacherinfo1",
+                type: "post",
+                datatype: "json",
+                success: function (data) {
+                    document.getElementById('winddow1td1').value = data.split(" ")[0];
+                    document.getElementById('winddow1td2').value = data.split(" ")[1];
+                    document.getElementById('winddow1td3').value = data.split(" ")[2];
+                    document.getElementById('winddow1td4').value = data.split(" ")[3];
+                    document.getElementById('winddow1td5').value = data.split(" ")[4];
+                    document.getElementById('winddow1td6').value = data.split(" ")[5];
+                }
+            })
+        }
+    </script>
+</head>
+<body onload="change()" class="welcomeBK" style="background: url(/images/login2.jpg);background-size:cover;background-repeat:no-repeat;">
+<div style="height: 384px;text-align: center;line-height: 384px;font-size: 49px; color: white;">
+    <span> 欢迎使用宿舍管理系统</span>
+</div>
+<div>
+
+</div>
+</body>
+</html>

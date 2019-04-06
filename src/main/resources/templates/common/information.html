@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:float="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/demo/demo.css"/>
+    <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/easyui/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/js1/manageruser.js"></script>
+</head>
+<style>
+    .datagrid-btable{
+        width:100%;
+    }
+    .datagrid-header-inner{
+        width:100%;
+    }
+    .datagrid-header{
+        width:100%;
+    }
+    .datagrid-htable{
+        width:100%;
+    }
+    .datagrid-cell{margin:auto;}
+    .fitem{text-align:center}
+    .ftitle{text-align:center}
+</style>
+
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'north'" style="width: 100%;height: 9%">
+    </div>
+
+    <div data-options="region:'center',title:'学生列表'">
+        <table id="datagrid"  class="easyui-datagrid" style="width:100%;height:100%"
+               url="/user/userinforlist"
+               toolbar="#dgtoolbar" pagination="true"
+               pageSize="25"    pageList="[25,15,10]"
+               rownumbers="false" fitColumns="true" singleSelect="true" >
+            <thead>
+            <tr>
+                <th data-options="field:'userId',align:'center',width:'9%'">学号</th>
+                <th data-options="field:'name',align:'center',width:'9%'">姓名</th>
+                <th data-options="field:'password',align:'center',width:'9%'">密码</th>
+                <th data-options="field:'sex',align:'center',width:'11%'">性别</th>
+                <th data-options="field:'age',align:'center',width:'9%'">年龄</th>
+                <th data-options="field:'telephone',align:'center',width:'9%'">电话</th>
+                <th data-options="field:'building',align:'center',width:'9%'">宿舍楼</th>
+                <th data-options="field:'floor',align:'center',width:'11%'">楼层</th>
+                <th data-options="field:'room',align:'center',width:'11%'">房间</th>
+            </tr>
+            </thead>
+        </table>
+        <div id="dgtoolbar">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUsers()">添加学生</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="removeUsers()">删除学生</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="editUsers()">修改学生信息</a>
+        </div>
+
+    </div>
+</div>
+
+<div id="modifydg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+     closed="true" buttons="#modifydg-buttons">
+    <div class="ftitle">学生信息</div>
+    <form id="fim" method="post" >
+        <div class="fitem">
+            <label>学号:</label>
+            <input name="userId"  readonly="readonly" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>姓名:</label>
+            <input name="name" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>密码:</label>
+            <input name="password" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>性别:</label>
+            <input name="sex" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>年龄:</label>
+            <input name="age" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>电话:</label>
+            <input name="telephone" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>宿舍楼:</label>
+            <input name="building" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>楼层:</label>
+            <input name="floor" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>房间:</label>
+            <input name="room" class="easyui-validatebox" required="true" />
+        </div>
+
+    </form>
+</div>
+<div id="modifydg-buttons">
+            <a href="#" class="easyui-linkbutton"  onclick="saveUsers()">保存</a>
+            <a href="#" class="easyui-linkbutton"  onclick="javascript:$('#modifydg').dialog('close')">取消</a>
+</div>
+
+<div id="adddg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+     closed="true" buttons="#adddg-buttons">
+    <div class="ftitle">学生信息</div>
+    <form id="fam" method="post" >
+        <div class="fitem">
+            <label>学号:</label>
+            <input name="userId" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>姓名:</label>
+            <input name="name" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>密码:</label>
+            <input name="password" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>性别:</label>
+            <input name="sex" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>年龄:</label>
+            <input name="age" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>电话:</label>
+            <input name="telephone" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>宿舍楼:</label>
+            <input name="building" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>楼层:</label>
+            <input name="floor" class="easyui-validatebox" required="true" />
+        </div>
+        <div class="fitem">
+            <label>房间:</label>
+            <input name="room" class="easyui-validatebox" required="true" />
+        </div>
+
+    </form>
+</div>
+<div id="adddg-buttons">
+    <a href="#" class="easyui-linkbutton"  onclick="addUsers()">添加</a>
+    <a href="#" class="easyui-linkbutton"  onclick="javascript:$('#adddg').dialog('close')">取消</a>
+</div>
+
+</body>
+</html>

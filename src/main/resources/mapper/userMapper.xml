@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qwn.domitoryProject.mapper.userMapper" >
+
+    <resultMap id="BaseResultMap" type="com.qwn.domitoryProject.entity.User" >
+      <id column="id" property="id" jdbcType="INTEGER" />
+      <result column="userId" property="userId" jdbcType="VARCHAR" />
+      <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+      <result column="age" property="age" jdbcType="INTEGER" />
+        <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+        <result column="building" property="building" jdbcType="VARCHAR" />
+        <result column="floor" property="floor" jdbcType="VARCHAR" />
+        <result column="room" property="room" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        userId,
+        password,
+        name,
+        sex,
+        age,
+        telephone,
+        building,
+        floor,
+        room,
+        isAdmin
+    </sql>
+
+    <!--用户登录验证:学生-->
+    <select id="userlogin" parameterType="user" resultType="User">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_user_info WHERE userId = #{userId} AND password = #{password} AND isAdmin=0
+    </select>
+
+    <!--用户登录验证:管理员-->
+    <select id="managerlogin" parameterType="user" resultType="User">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_user_info WHERE userId = #{userId} AND password = #{password} AND isAdmin=1
+    </select>
+
+    <!--新用户注册  方式1 自增長-->
+    <insert id="adduser" parameterType="user" useGeneratedKeys="false" keyProperty="id">
+        INSERT INTO t_user_info (userId,password,name,sex,age,telephone,building,floor,room) VALUES (#{userId},#{password},#{name},#{sex},#{age},#{telephone},#{building},#{floor},#{room})
+    </insert>
+
+    <!--新用户注册  方式2-->
+    <insert id="adduser1" parameterType="user">
+        INSERT INTO t_user_info (id,userId,password,name) VALUES (uuid(),#{userId},#{password},#{name})
+    </insert>
+
+    <select id="queryAllUser" resultType="map">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_user_info
+    </select>
+
+
+    <!--other -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user_info
+        where userId = #{userId,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectselectByKeyAndPassword" parameterType="com.qwn.domitoryProject.entity.User" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user_info
+        where userId = #{userId,jdbcType=VARCHAR} and  password = #{password}
+    </select>
+
+    <select id="getUsernumber" resultType="java.lang.Integer">
+     select count(*) from t_user_info
+  </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user_info
+    where userId = #{userId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.qwn.domitoryProject.entity.User">
+    insert into t_user_info (userId, name, password,
+      telephone)
+    values (#{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{telephone,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.qwn.domitoryProject.entity.User">
+        insert into t_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                userId,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="telephone != null">
+                telephone,
+            </if>
+            <if test="building != null">
+                building,
+            </if>
+            <if test="floor != null">
+                floor,
+            </if>
+            <if test="room != null">
+                room,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="telephone != null">
+                #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="building != null">
+                #{building,jdbcType=VARCHAR},
+            </if>
+            <if test="floor != null">
+                #{floor,jdbcType=VARCHAR},
+            </if>
+            <if test="room != null">
+                #{room,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.qwn.domitoryProject.entity.User">
+        update t_user_info
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=VARCHAR},
+            </if>
+            <if test="building != null">
+                building = #{building,jdbcType=VARCHAR},
+            </if>
+            <if test="floor != null">
+                floor = #{floor,jdbcType=VARCHAR},
+            </if><if test="room != null">
+            room = #{room,jdbcType=INTEGER},
+        </if>
+        </set>
+        where userId = #{userId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.qwn.domitoryProject.entity.User">
+    update t_user_info
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR}
+    where userId = #{userId,jdbcType=VARCHAR}
+  </update>
+
+    <select id="selectAllUser" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user_info where isAdmin=0
+    </select>
+
+</mapper>

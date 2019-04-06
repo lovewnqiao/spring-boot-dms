@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:float="http://www.w3.org/1999/xhtml">
+
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/demo/demo.css"/>
+    <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dialog.css" />
+</head>
+<style>
+    label{font-size:24px;}
+</style>
+
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div id="modifydg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+         closed="true" buttons="#modifydg-buttons">
+
+
+        <div class="modifyPassword">
+            <div classs="dialog-content">
+
+                <div class="ui-dialog-text panel window panel-htop" style="height: 300px;width: 570px;margin-left:30%;margin-top:10%">
+                    <form action="/user/updateMyInfo" method="post">
+                        <table align="center" width="280px" style="height: 320px; text-align:center;margin: auto;">
+                            <tr> <td colspan="2" style="font-size: 20px; text-align: center;"> <div class="ftitle">个人信息修改</div></td></tr>
+                            <tr>
+                                <td >学号：</td>
+                                <td><input type="text"  readonly="readonly" name="userId" th:value="${session.user.userId}"></input></td>
+                            </tr>
+                            <tr>
+                                <td>姓名:</td>
+                                <td><input type="text" name="userName"  th:value="${session.user.name}"></input></td>
+                            </tr>
+                            <tr style="display: none">
+                                <td>密码:</td>
+                                <td><input type="text" name="password"  th:value="${session.user.password}"></input></td>
+                            </tr>
+                            <tr>
+                                <td>电话：</td>
+                                <td><input type="text" name="telephone" th:value="${session.user.telephone}"></input></td>
+                            </tr>
+                            <tr>
+                                <td>性别：</td>
+                                <td><input type="text" name="sex" th:value="${session.user.sex}"></input></td>
+                            </tr>
+                            <tr>
+                                <td>年龄：</td>
+                                <td><input type="text" name="age" th:value="${session.user.age}"></input></td>
+                            </tr>
+                            <tr>
+                                <td>宿舍楼：</td>
+                                <td><input type="text" name="building" th:value="${session.user.building}"></input></td>
+                            </tr>
+                            <tr>
+                                <td>楼层：</td>
+                                <td><input type="text" name="floor" th:value="${session.user.floor}"></input></td>
+                            </tr>
+                            <tr>
+                                <td>房间：</td>
+                                <td><input type="text" name="room" th:value="${session.user.room}"></input></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center;" colspan="2"><input type="submit" name="" class="button long2 ok" value="确定" align="center"></input></td>
+                            </tr>
+                        </table>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

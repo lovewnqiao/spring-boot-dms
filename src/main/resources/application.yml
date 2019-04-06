@@ -1,0 +1,21 @@
+
+server:
+  port: 8888
+
+
+spring:
+    datasource:
+        name: test
+        url: jdbc:mysql://127.0.0.1:3306/dms?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+        username: root
+        password: 323626
+        driver-class-name: com.mysql.jdbc.Driver
+
+    thymeleaf:
+           cache: false
+           prefix: classpath:/templates/
+           suffix: .html
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  type-aliases-package: com.qwn.domitoryProject.entity  # 注意：对应实体类的路径

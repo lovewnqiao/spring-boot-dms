@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登录</title>
+    <script type="text/javascript" ></script>
+</head>
+
+<body style="background: url(/images/login3.jpg);background-size:cover;background-repeat:no-repeat;">
+<div>
+    <form action="/user/managerLogin" method="post">
+        <div style="font-size:21px;text-align:center;background: #6495ED ;position:fixed;top:20%;left:35%;height: 368px; width: 350px;filter:alpha(Opacity=60);-moz-opacity:0.5;opacity: 0.5">
+            <div style="font-size:22px;height: 120px;width: 350px;background: #6A5ACD;filter:alpha(Opacity=60);-moz-opacity:0.5;opacity: 0.5">
+                <br>DMS
+                <br>Dormitory Management System
+                <br>管理员登录
+            </div>
+            <br>
+            账号：<input type="text" name="userId" id="userId"/><br>
+            密码：<input type="password" name="password" id="password"/><br>
+            <br>
+            <input type="submit" value="Login" id="btn1" onclick="loginCheck()"/>
+            <input type="button" value="重置" class="reset_botton"  onclick="reset()" />
+            <a href="/user/registerpage" target="_blank">注册</a>
+            <!--<img src="/images/testbackground.jpg">-->
+        </div>
+    </form>
+    <script type="text/javascript">
+        function loginCheck(){
+            if(document.getElementById('userId').value.length==0){
+                alert('请输入账号！');
+                //让光标焦点在id为userId的控件处
+                document.getElementById('userId').focus();
+                return false;
+            }
+            if(document.getElementById('password').value.length==0){
+                alert('请输入密码！');
+                document.getElementById('password').focus();
+                return false;
+            }
+        }
+    </script>
+</div>
+</body>
+</html>

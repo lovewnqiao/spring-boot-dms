@@ -1,0 +1,126 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>请登录</title><base target="_blank" />
+    <style>
+        body{
+            margin:0px auto;
+            background-image: url(images/dlbj1.png) ;
+            position: relative;
+        }
+        .dl{
+            width: 380px ;
+            height: 220px ;
+            background-image: url(images/dl.png) ;
+            text-align: center ;
+            margin: auto ;
+            margin-top: 15% ;
+            position: center;
+        }
+        .btn{
+            font-family : 微软雅黑 ;
+            font-size: medium ;
+        }
+        #username{
+            max-width: 200px ;
+            margin: 10px 0px 0px 0px ;
+            height: 28px ;
+        }
+        #us{
+            color: #FFFFFF ;
+            font-family : 微软雅黑;
+        }
+        #ps{
+            color: #FFFFFF ;
+            font-family : 微软雅黑;
+        }
+        #password{
+            max-width: 200px ;
+            margin: 20px 0px 10px 0px ;
+            height: 28px ;
+        }
+    </style>
+</head>
+<body>
+<form class="dl" method="post">
+    <div class="dlsy">
+        <br/><br/><br/>
+        <div class="username">
+            账号：<input type="text" id="username"/><span id="u" style="display: none;color: red;font-size:13px;">*请输入账号！</span>
+        </div>
+        <div class="password">
+            密码：<input type="password" id="password"/><span id="p" style="display: none;color: red;font-size:13px;">*请输入密码！</span>
+        </div>
+        <div class="empty">
+            <span id="up" style="display: none;color: red;font-size:13px;">*账号或密码错误</span>
+        </div>
+        <div class="btn">
+            <button type="button" id="reset" class="btn btn-default button-rounded button-small">重置</button>
+            <button type="button" id="submit" class="btn btn-default button-rounded button-small">登录</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var x=document.getElementById("username");
+    var y=document.getElementById("password");
+    var btnSubmit = document.getElementById("submit");
+    var btnReset = document.getElementById("reset");
+    var u=document.getElementById("u");
+    var p=document.getElementById("p");
+    var up=document.getElementById("up");
+    //点击登录按钮时判断账号、密码是否为空或错误
+    btnSubmit.onclick=function(form){
+        if(x.value==""){
+            if(y.value==""){
+                up.style.display="block";
+            }
+            else{
+                u.style.display="block";
+                up.style.display="none";
+            }
+        }
+        else if(y.value==""){
+            if(x.value==""){
+                up.style.display="block";
+            }
+            else{
+                p.style.display="block";
+                up.style.display="none";
+            }
+        }
+        else{
+            u.style.display="none";
+            up.style.display="block";
+            p.style.display="none";
+        }
+    }
+    //点击重置按钮时清空账号密码
+    btnReset.onclick=function(form){
+        x.value=""; //清空input里的value
+        y.value="";
+        u.style.display="none";
+        up.style.display="none";
+        p.style.display="none";
+    }
+    /*btn.onclick=function(form){
+    /*if (x!="admin"||y!=123456){
+    alert('账号或密码错误!');
+    }
+    //判断账号密码是否为空则弹出
+    if (""==x) {
+    alert("请输入账号！");
+    flag=false;
+    return false;
+    }
+    else if(""==y){
+    alert("请输入密码！");
+    flag=false;
+    return false;
+    }
+    if(flag==true){
+    flag=true;
+    }*/
+</script>
+</body>
+</html>
