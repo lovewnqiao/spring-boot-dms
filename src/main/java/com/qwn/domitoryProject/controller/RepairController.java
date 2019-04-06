@@ -1,8 +1,8 @@
 package com.qwn.domitoryProject.controller;
 
 
+import com.qwn.domitoryProject.constant.DmsConstants;
 import com.qwn.domitoryProject.entity.Repair;
-import com.qwn.domitoryProject.entity.User;
 import com.qwn.domitoryProject.service.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -143,7 +143,7 @@ public class RepairController {
     @ResponseBody
     public Map<String,String> removeRepairs(@RequestParam("id") Integer id,HttpSession session){
         Map<String,String> result = new HashMap<>();
-        if(((Repair)session.getAttribute("user")).getId().equals(id)){
+        if(((Repair)session.getAttribute(DmsConstants.SESSION_USER)).getId().equals(id)){
             result.put("msg","违法操作！不能删除自己！");
             return result;
         }

@@ -31,7 +31,7 @@
                             <tr> <td colspan="2" style="font-size: 20px; text-align: center;"> <div class="ftitle">个人信息修改</div></td></tr>
                             <tr>
                                 <td >学号：</td>
-                                <td><input type="text"  readonly="readonly" name="userId" th:value="${user.userId}"></input></td>
+                                <td><input type="text"  readonly="readonly" name="userId" th:value="${session.user.id}"></input></td>
                             </tr>
                             <tr>
                                 <td>姓名:</td>

@@ -1,5 +1,6 @@
 package com.qwn.domitoryProject.controller;
 
+import com.qwn.domitoryProject.constant.DmsConstants;
 import com.qwn.domitoryProject.entity.User;
 import com.qwn.domitoryProject.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class UserLoginController {
     /**
      * 最开始希望用Map的形式接参数，后来不用了，将请求对应的接受方式记录一下
      *
-     * @RequestBody Map<String , Object> map      post请求
-     * @RequestParam Map<String , Object> map     get请求
+     * @RequestBody Map<String               ,               Object> map      post请求
+     * @RequestParam Map<String               ,               Object> map     get请求
      */
 
     /**
@@ -71,12 +72,11 @@ public class UserLoginController {
 
     /**
      * 登录成功 加载欢迎页面  返回String y页面的路径和名称
-     * */
-    @RequestMapping(value="welcome",method = {RequestMethod.POST,RequestMethod.GET})
-    public  String welcome(){
+     */
+    @RequestMapping(value = "welcome", method = {RequestMethod.POST, RequestMethod.GET})
+    public String welcome() {
         return "welcome";
     }
-
 
 
     /**
@@ -87,39 +87,6 @@ public class UserLoginController {
     @ResponseBody
     @RequestMapping(value = {"/userLogin"})
     public ModelAndView userLogin(@RequestParam("userId") String userId,
-                            @RequestParam("password") String password,
-                            HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ModelAndView model = new ModelAndView();
-//        if (StringUtils.isEmpty(userId)) {
-//            model.setViewName("loginError");
-//            return model;
-//        }
-//
-//        if (StringUtils.isEmpty(password)) {
-//            model.setViewName("loginError");
-//            return model;
-//        }
-
-        User user = userLoginService.userLogin(userId,password);
-
-        if (user != null) {                                                  //登录成功
-            request.getSession().setAttribute("session_user", user);     //将用户信息放入session  用于后续的拦截器
-            model.setViewName("index");
-            //response.sendRedirect("../index");
-        } else {
-            model.addObject("MSG", "用户名或密码错误");
-            model.setViewName("userLogin");
-        }
-        return model;
-    }
-    /**
-     * 获取用户名与密码，管理员登录
-     *
-     * @return 登录成功页面
-     */
-    @ResponseBody
-    @RequestMapping(value = {"/managerLogin"})
-    public ModelAndView managerLogin(@RequestParam("userId") String userId,
                                   @RequestParam("password") String password,
                                   HttpServletRequest request, HttpServletResponse response) throws IOException {
         ModelAndView model = new ModelAndView();
@@ -133,10 +100,44 @@ public class UserLoginController {
 //            return model;
 //        }
 
-        User manager = userLoginService.managerLogin(userId,password);
+        User user = userLoginService.userLogin(userId, password);
+
+        if (user != null) {                                                  //登录成功
+            request.getSession().setAttribute(DmsConstants.SESSION_USER, user);     //将用户信息放入session  用于后续的拦截器
+            model.setViewName("index");
+            //response.sendRedirect("../index");
+        } else {
+            model.addObject("MSG", "用户名或密码错误");
+            model.setViewName("userLogin");
+        }
+        return model;
+    }
+
+    /**
+     * 获取用户名与密码，管理员登录
+     *
+     * @return 登录成功页面
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/managerLogin"})
+    public ModelAndView managerLogin(@RequestParam("userId") String userId,
+                                     @RequestParam("password") String password,
+                                     HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ModelAndView model = new ModelAndView();
+//        if (StringUtils.isEmpty(userId)) {
+//            model.setViewName("loginError");
+//            return model;
+//        }
+//
+//        if (StringUtils.isEmpty(password)) {
+//            model.setViewName("loginError");
+//            return model;
+//        }
+
+        User manager = userLoginService.managerLogin(userId, password);
 
         if (manager != null) {                                                  //登录成功
-            request.getSession().setAttribute("session_user", manager);     //将用户信息放入session  用于后续的拦截器
+            request.getSession().setAttribute(DmsConstants.SESSION_USER, manager);     //将用户信息放入session  用于后续的拦截器
             model.setViewName("managerIndex");
             //response.sendRedirect("../index");
         } else {

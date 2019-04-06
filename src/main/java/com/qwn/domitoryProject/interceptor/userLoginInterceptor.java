@@ -1,5 +1,6 @@
 package com.qwn.domitoryProject.interceptor;
 
+import com.qwn.domitoryProject.constant.DmsConstants;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class userLoginInterceptor implements HandlerInterceptor {
     /*
-	 * 视图渲染之后的操作
-	 */
+     * 视图渲染之后的操作
+     */
     @Override
     public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
 
@@ -39,7 +40,7 @@ public class userLoginInterceptor implements HandlerInterceptor {
         System.out.println("执行到了preHandle方法");
         System.out.println(obj);
 
-        if(request.getSession().getAttribute("session_user") == null){
+        if (request.getSession().getAttribute(DmsConstants.SESSION_USER) == null) {
 
             //当被拦截器拦截时，页面跳转
             response.sendRedirect("/user/loginHtml");
