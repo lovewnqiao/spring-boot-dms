@@ -90,11 +90,11 @@
 		</dependency>
 
 		<!-- 读取project文件 -->
-		<dependency>
-			<groupId>net.sf.mpxj</groupId>
-			<artifactId>mpxj</artifactId>
-			<version>7.1.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>net.sf.mpxj</groupId>-->
+<!--			<artifactId>mpxj</artifactId>-->
+<!--			<version>7.1.0</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
