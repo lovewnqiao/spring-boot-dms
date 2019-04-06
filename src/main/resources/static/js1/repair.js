@@ -18,7 +18,7 @@ function saveRepair(){
     if(row==null){
         add="/repair/update?id=0";
     } else{
-        add="/repair/update?id="+row.userId;
+        add="/repair/update?id="+row.id;
     }
 
     $('#fim').form('submit',{
@@ -54,7 +54,7 @@ function removeRepair(){
         $.messager.confirm('Confirm','确定要删除该记录?',function(r){
             if (r){
 
-                $.post('/repair/remove_repair',{id:row.userId},function(result){
+                $.post('/repair/remove_repair',{id:row.id},function(result){
                     if (result.success){
 
                         $('#datagrid').datagrid('reload');	// reload the user data

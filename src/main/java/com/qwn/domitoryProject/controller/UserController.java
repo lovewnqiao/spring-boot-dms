@@ -162,16 +162,16 @@ public class UserController {
      */
     @PostMapping(value = "/remove_users")//删除学生
     @ResponseBody
-    public Map<String, String> removeUsers(@RequestParam("userId") String userId, HttpSession session) {
+    public Map<String, String> removeUsers(@RequestParam("id") String id, HttpSession session) {
         Map<String, String> result = new HashMap<>();
-        if (((User) session.getAttribute(DmsConstants.SESSION_USER)).getUserId().equals(userId)) {
+        if (((User) session.getAttribute(DmsConstants.SESSION_USER)).getUserId().equals(id)) {
             result.put("msg", "违法操作！不能删除自己！");
             return result;
         }
         try {
-            userService.delete(userId);
+            userService.delete(id);
             result.put("success", "true");
-            System.out.println("删除Id: " + userId);
+            System.out.println("删除Id: " + id);
         } catch (Exception e) {
             e.printStackTrace();
             result.put("msg", "Some errors occured.");
