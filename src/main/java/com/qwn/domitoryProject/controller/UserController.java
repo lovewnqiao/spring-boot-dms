@@ -19,7 +19,6 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
-    static final int pageSize = 10;
     @Autowired
     private UserService userService;
 
@@ -29,17 +28,6 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/all", produces = {"application/json;charset=UTF-8"})
-    public Object findAllUser(HttpServletRequest request, HttpServletResponse response) {
-        String pageNum = request.getParameter("pageNum");
-        int pageNumber = 0;
-        if (null == pageNum) {
-            pageNumber = 1;
-        }
-
-        return userService.findAllUser(pageNumber, pageSize);
-    }
 
     @ResponseBody
     @RequestMapping(value = "delete/{key}", produces = {"application/json;charset=UTF-8"})
@@ -282,7 +270,7 @@ public class UserController {
     public ModelAndView exit(HttpSession session) {
         session.removeAttribute(DmsConstants.SESSION_USER);
         ModelAndView model = new ModelAndView();
-        model.setViewName("redirect:/login/");
+        model.setViewName("redirect:/user/helloWord");
         return model;
     }
 

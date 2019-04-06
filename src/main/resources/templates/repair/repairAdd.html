@@ -2,17 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>新增维修记录</title>
+    <title>添加报修记录</title>
+    <script type="text/javascript" ></script>
 </head>
-<body>
+<body style="background: url(/images/login2.jpg);background-size:cover;background-repeat:no-repeat;">
 <form action="/repair/repairAdd" method="post">
-    宿舍楼:<input type="text" name="buildingId" /></br>
-    楼 层:<input type="text" name="floorId" /></br>
-    房 间:<input type="text" name="roomId" /></br>
-    名 称<input type="text" name="name" /></br>
-    描 述:<input type="text" name="descr" /></br>
-    申请人:<input type="text" name="applicant" /></br>
-    <input type="submit" value="确定">
+    <div style="font-size:21px;text-align:center;background: #008B8B;position:fixed;top:20%;left:35%;height: 368px; width: 350px;filter:alpha(Opacity=60);-moz-opacity:0.5;opacity: 0.5">
+        <div style="font-size:22px;height: 100px;width: 350px;background: #4682B4;filter:alpha(Opacity=60);-moz-opacity:0.5;opacity: 0.5">
+            <br>报修管理
+            <br>添加
+        </div>
+        宿舍楼:<input type="text" name="buildingId" /></br>
+        楼  层:<input type="text" name="floorId" /></br>
+        房  间:<input type="text" name="roomId" /></br>
+        名  称:<input type="text" name="name" /></br>
+        描  述:<input type="text" name="descr" /></br>
+        时  间:<input type="text" name="data" /></br>
+        申请人:<input type="text" name="applicant" /></br>
+        <input type="submit" value="确定">
+    </div>
+
 </form>
 </body>
 </html>

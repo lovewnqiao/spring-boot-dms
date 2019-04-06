@@ -6,4 +6,5 @@ package com.qwn.domitoryProject.constant;
  */
 public interface DmsConstants {
     String SESSION_USER = "user";
+    String SESSION_REPAIR = "repair";
 }

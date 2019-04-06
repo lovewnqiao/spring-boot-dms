@@ -40,7 +40,7 @@ public class RepairController {
     //删除维修记录
     @ResponseBody
     @RequestMapping(value="delete/{key}", produces = {"application/json;charset=UTF-8"})
-    public int deleteUser(@PathVariable("key") Integer key){
+    public int deleteRepair(@PathVariable("key") Integer key){
         return repairService.delete(key);
     }
 
@@ -113,7 +113,7 @@ public class RepairController {
     @ResponseBody
     public Map<String,String> update(@RequestParam("buildingId") String buildingId, @RequestParam("floorId") String floorId,
                                      @RequestParam("roomId") String roomId, @RequestParam("name") String name,
-                                     @RequestParam("desc") String desc, @RequestParam("data") String data,
+                                     @RequestParam("descr") String descr, @RequestParam("data") String data,
                                      @RequestParam("applicant") String applicant,HttpSession session){
 
         Map<String,String> map=new HashMap<>();
@@ -123,7 +123,7 @@ public class RepairController {
         repair.setName(name);
         repair.setRoomId(roomId);
         repair.setData(data);
-        repair.setDescr(desc);
+        repair.setDescr(descr);
         repair.setApplicant(applicant);
         try{
             repairService.update(repair);
@@ -143,7 +143,7 @@ public class RepairController {
     @ResponseBody
     public Map<String,String> removeRepairs(@RequestParam("id") Integer id,HttpSession session){
         Map<String,String> result = new HashMap<>();
-        if(((Repair)session.getAttribute(DmsConstants.SESSION_USER)).getId().equals(id)){
+        if(((Repair)session.getAttribute(DmsConstants.SESSION_REPAIR)).getId().equals(id)){
             result.put("msg","违法操作！不能删除自己！");
             return result;
         }
