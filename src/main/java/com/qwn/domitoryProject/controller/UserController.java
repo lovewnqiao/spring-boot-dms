@@ -59,6 +59,12 @@ public class UserController {
         return "/common/information";
     }
 
+    //个人信息管理
+    @RequestMapping(value = "/updateMyInfo", method = {RequestMethod.POST, RequestMethod.GET})
+    public String updateMyInfo(HttpSession session) {
+        return "/common/myInfo";
+    }
+
     /*
        查询学生信息列表
     */
@@ -174,7 +180,7 @@ public class UserController {
     /*
            个人信息修改（年龄，性别，电话）
     */
-    @RequestMapping(value="/updateMyInfo",method = {RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value="/myInfo",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public ModelAndView updateMyInfo( @RequestParam("userId") String userId,@RequestParam("name") String name,  @RequestParam("sex") String sex,
                                      @RequestParam("age") Integer age, @RequestParam("telephone") String telephone,
@@ -208,7 +214,7 @@ public class UserController {
     /***
      * 个人信息修改（密码）
      */
-    @RequestMapping(value = "myInfo",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "myInfoPassword",method = {RequestMethod.POST, RequestMethod.GET})
     public  ModelAndView myInfo(HttpSession session){
         ModelAndView model=new ModelAndView();
         User user=(User)session.getAttribute("user");

@@ -31,39 +31,39 @@
                             <tr> <td colspan="2" style="font-size: 20px; text-align: center;"> <div class="ftitle">个人信息修改</div></td></tr>
                             <tr>
                                 <td >学号：</td>
-                                <td><input type="text"  readonly="readonly" name="userId" th:value="${session.user.userId}"></input></td>
+                                <td><input type="text"  readonly="readonly" name="userId" th:value="${user.userId}"></input></td>
                             </tr>
                             <tr>
                                 <td>姓名:</td>
-                                <td><input type="text" name="userName"  th:value="${session.user.name}"></input></td>
+                                <td><input type="text" name="userName"  th:value="${user.name}"></input></td>
                             </tr>
                             <tr style="display: none">
                                 <td>密码:</td>
-                                <td><input type="text" name="password"  th:value="${session.user.password}"></input></td>
+                                <td><input type="text" name="password"  th:value="${user.password}"></input></td>
                             </tr>
                             <tr>
                                 <td>电话：</td>
-                                <td><input type="text" name="telephone" th:value="${session.user.telephone}"></input></td>
+                                <td><input type="text" name="telephone" th:value="${user.telephone}"></input></td>
                             </tr>
                             <tr>
                                 <td>性别：</td>
-                                <td><input type="text" name="sex" th:value="${session.user.sex}"></input></td>
+                                <td><input type="text" name="sex" th:value="${user.sex}"></input></td>
                             </tr>
                             <tr>
                                 <td>年龄：</td>
-                                <td><input type="text" name="age" th:value="${session.user.age}"></input></td>
+                                <td><input type="text" name="age" th:value="${user.age}"></input></td>
                             </tr>
                             <tr>
                                 <td>宿舍楼：</td>
-                                <td><input type="text" name="building" th:value="${session.user.building}"></input></td>
+                                <td><input type="text" name="building" th:value="${user.building}"></input></td>
                             </tr>
                             <tr>
                                 <td>楼层：</td>
-                                <td><input type="text" name="floor" th:value="${session.user.floor}"></input></td>
+                                <td><input type="text" name="floor" th:value="${user.floor}"></input></td>
                             </tr>
                             <tr>
                                 <td>房间：</td>
-                                <td><input type="text" name="room" th:value="${session.user.room}"></input></td>
+                                <td><input type="text" name="room" th:value="${user.room}"></input></td>
                             </tr>
                             <tr>
                                 <td style="text-align:center;" colspan="2"><input type="submit" name="" class="button long2 ok" value="确定" align="center"></input></td>

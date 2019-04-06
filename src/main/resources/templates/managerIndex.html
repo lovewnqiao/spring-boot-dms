@@ -20,7 +20,7 @@
             <h1 class="logo"></h1>
             <div class="login-info ue-clear">
                 <div class="welcome ue-clear" style="width: 196px;"><!--<span th:text="${session.user.getName()}"></span>-->
-                    <a>&nbsp;欢迎您管理员<th:em><i class="user-name"></i></th:em></a></div>
+                    <a>&nbsp;欢迎您<th:em><i class="user-name"></i><span th:text="${session.user.getName()}"></span></th:em></a></div>
             </div>
             <div class="toolbar ue-clear">
                 <a href="javascript:;" class="home-btn modify"></a>
@@ -77,7 +77,7 @@
                 <table align="center" width="280px" style="height:180px; text-align:center;">
                     <tr style="display: none">
                         <td ></td>                                       <!--th:value="${session.user.getUserId()}"-->
-                        <td><input type="userId" name="userId" ></input></td>
+                        <td><input type="userId" name="userId" th:value="${session.user.getUserId()}"></input></td>
                     </tr>
                     <tr>
                         <td >初始密码：</td>
