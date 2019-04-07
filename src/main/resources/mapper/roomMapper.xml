@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qwn.domitoryProject.mapper.roomMapper" >
+
+    <resultMap id="BaseResultMap" type="com.qwn.domitoryProject.entity.Room" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="buildingId" property="buildingId" jdbcType="VARCHAR" />
+        <result column="floorId" property="floorId" jdbcType="VARCHAR" />
+        <result column="roomId" property="roomId" jdbcType="INTEGER" />
+        <result column="studentName" property="studentName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        buildingId,
+        floorId,
+        studentName,
+        roomId
+    </sql>
+
+    <!--查询房间记录-->
+    <select id="selectAllRoom" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_room
+    </select>
+
+    <!--查询维修记录数量-->
+    <select id="getRoomnumber" resultType="java.lang.Integer">
+     select count(*) from t_room
+    </select>
+
+    <!--新增房间自增長-->
+    <insert id="addRoom" parameterType="com.qwn.domitoryProject.entity.Room" useGeneratedKeys="false" keyProperty="id">
+        INSERT INTO t_room (buildingId,floorId,roomId,studentName) VALUES (#{buildingId},#{floorId},#{roomId},#{studentName})
+    </insert>
+
+    <!--修改房间记录-->
+    <update id="updateByPrimaryKeyRoom" parameterType="com.qwn.domitoryProject.entity.Room">
+        update t_room
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="buildingId != null">
+                buildingId = #{buildingId,jdbcType=VARCHAR},
+            </if>
+            <if test="floorId != null">
+                floorId = #{floorId,jdbcType=VARCHAR},
+            </if>
+            <if test="roomId != null">
+                roomId = #{roomId,jdbcType=VARCHAR},
+            </if>
+            <if test="studentName != null">
+                studentName = #{studentName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!--删除房间记录-->
+    <delete id="deleteByPrimaryKeyRoom" parameterType="java.lang.Integer">
+    delete from t_room
+    where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+</mapper>

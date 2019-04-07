@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>管理员登录</title>
@@ -20,9 +20,15 @@
             密码：<input type="password" name="password" id="password"/><br>
             <br>
             <input type="submit" value="Login" id="btn1" onclick="loginCheck()"/>
-            <input type="button" value="重置" class="reset_botton"  onclick="reset()" />
-            <a href="/user/registerpage" target="_blank">注册</a>
-            <!--<img src="/images/testbackground.jpg">-->
+            <input type="button" value="Reset" class="reset_botton"  onclick="reset()" />
+            <br>
+            <a href="/user/registerpage" target="_blank">register</a>
+            <br>
+            <!--获取后端addObject中的msg-->
+            <td colspan="3" style="text-align:center">
+                <span  class="message1" id="message" th:text="${MSG}"></span>
+            </td>
+
         </div>
     </form>
     <script type="text/javascript">

@@ -1,0 +1,75 @@
+
+//入住信息修改
+function editReport(){
+    //选中某一行
+    var row = $('#datagrid').datagrid('getSelected');
+    if (row){
+        $('#modifydg').dialog('open').dialog('setTitle','修改宿舍楼信息');
+        //显示未修改前的学生入住信息
+        $('#fim').form('load',row);
+    }
+}
+
+
+//学生入住信息保存按钮事件
+function saveReport(){
+    var row = $('#datagrid').datagrid('getSelected');
+    var add;
+    if(row==null){
+        add="/report/update?id=0";
+    } else{
+        add="/report/update?id="+row.id;
+    }
+
+    $('#fim').form('submit',{
+        url: add,
+        onSubmit: function(){
+            return $(this).form('validate');
+        },
+        success: function(result){
+            var result = eval('('+result+')');
+            if (result.success){
+
+                $('#modifydg').dialog('close');		// close the dialog
+                $('#datagrid').datagrid('reload');	// reload the user data
+                $.messager.show({
+                    title: 'Success',
+                    msg: '保存成功'
+                });
+            } else {
+                $.messager.show({
+                    title: 'Error',
+                    msg: result.msg
+                });
+            }
+        }
+    });
+}
+
+//学生入住信息删除按钮事件
+function removeReport(){
+    var row = $('#datagrid').datagrid('getSelected');
+
+    if (row){
+        $.messager.confirm('Confirm','确定要删除该记录?',function(r){
+            if (r){
+
+                $.post('/report/remove_report',{id:row.id},function(result){
+                    if (result.success){
+
+                        $('#datagrid').datagrid('reload');	// reload the user data
+                        $.messager.show({
+                            title: 'Success',
+                            msg: '删除成功'
+                        });
+                    } else {
+                        $.messager.show({	// show error message
+                            title: 'Error',
+                            msg: result.msg
+                        });
+                    }
+                },'json');
+            }
+        });
+    }
+}

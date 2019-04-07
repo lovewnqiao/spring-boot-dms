@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/easyui/jquery.min.js"></script>
     <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/easyui/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="/js1/repair.js"></script><!--注意修改-->
+    <script type="text/javascript" src="/js1/floor.js"></script><!--注意修改-->
 </head>
 <style>
     .datagrid-btable{
@@ -34,9 +34,9 @@
     <div data-options="region:'north'" style="width: 100%;height: 9%">
     </div>
 
-    <div data-options="region:'center',title:'报修列表'">
+    <div data-options="region:'center',title:'楼层列表'">
         <table id="datagrid"  class="easyui-datagrid" style="width:100%;height:100%"
-               url="/repair/repairlist"
+               url="/floor/floorlist"
                toolbar="#dgtoolbar" pagination="true"
                pageSize="25"    pageList="[25,15,10]"
                rownumbers="false" fitColumns="true" singleSelect="true" >
@@ -44,26 +44,21 @@
             <tr>
                 <th data-options="field:'buildingId',align:'center',width:'9%'">宿舍楼</th>
                 <th data-options="field:'floorId',align:'center',width:'9%'">楼层</th>
-                <th data-options="field:'roomId',align:'center',width:'9%'">房间</th>
                 <th data-options="field:'name',align:'center',width:'11%'">名称</th>
-                <th data-options="field:'descr',align:'center',width:'9%'">描述</th>
-                <th data-options="field:'data',align:'center',width:'9%'">时间</th>
-                <th data-options="field:'applicant',align:'center',width:'9%'">申请人</th>
-                <th data-options="field:'state',align:'center',width:'9%'">状态</th>
             </tr>
             </thead>
         </table>
         <div id="dgtoolbar">
-            <a href="/repair/repairAddPage" target="_blank">新增维修</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="removeRepair()">删除维修记录</a>
-            <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="editRepair()">修改维修记录</a>
+            <a href="/floor/floorAddPage" target="_blank">新增楼层</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="removeFloor()">删除楼层信息</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="editFloor()">修改楼层信息</a>
         </div>
 
     </div>
 </div>
 <div id="modifydg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
      closed="true" buttons="#modifydg-buttons">
-    <div class="ftitle">维修记录</div>
+    <div class="ftitle">楼层信息</div>
     <form id="fim" method="post" >
         <div class="fitem">
             <label>编  号:</label>
@@ -78,34 +73,14 @@
             <input name="floorId" class="easyui-validatebox" required="true" />
         </div>
         <div class="fitem">
-            <label>房  间:</label>
-            <input name="roomId" class="easyui-validatebox" required="true" />
-        </div>
-        <div class="fitem">
             <label>名  称:</label>
             <input name="name" class="easyui-validatebox" required="true" />
-        </div>
-        <div class="fitem">
-            <label>描  述:</label>
-            <input name="descr" class="easyui-validatebox" required="true" />
-        </div>
-        <div class="fitem">
-            <label>日  期:</label>
-            <input name="data" class="easyui-validatebox" required="true" />
-        </div>
-        <div class="fitem">
-            <label>申请人:</label>
-            <input name="applicant" class="easyui-validatebox" required="true" />
-        </div>
-        <div class="fitem">
-            <label>状  态:</label>
-            <input name="state" class="easyui-validatebox" required="true" />
         </div>
 
     </form>
 </div>
 <div id="modifydg-buttons">
-    <a href="#" class="easyui-linkbutton"  onclick="saveRepair()">保存</a>
+    <a href="#" class="easyui-linkbutton"  onclick="saveFloor()">保存</a>
     <a href="#" class="easyui-linkbutton"  onclick="javascript:$('#modifydg').dialog('close')">取消</a>
 </div>
 

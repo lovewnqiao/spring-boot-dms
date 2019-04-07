@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qwn.domitoryProject.mapper.reportMapper" >
+
+    <resultMap id="BaseResultMap" type="com.qwn.domitoryProject.entity.Report" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="studentId" property="studentId" jdbcType="VARCHAR" />
+        <result column="studentName" property="studentName" jdbcType="VARCHAR" />
+        <result column="classes" property="classes" jdbcType="VARCHAR" />
+        <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+        <result column="dormitory" property="dormitory" jdbcType="VARCHAR" />
+        <result column="data" property="data" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        studentId,
+        studentName,
+        classes,
+        telephone,
+        dormitory,
+        data
+    </sql>
+
+    <!--查询学生入住记录-->
+    <select id="selectAllReport" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_report
+    </select>
+
+    <!--查询学生入住记录数量-->
+    <select id="getReportnumber" resultType="java.lang.Integer">
+     select count(*) from t_report
+    </select>
+
+    <!--新增学生入住 自增長-->
+    <insert id="addReport" parameterType="com.qwn.domitoryProject.entity.Report" useGeneratedKeys="false" keyProperty="id">
+        INSERT INTO t_report (studentId,studentName,classes,telephone,dormitory,data) VALUES (#{studentId},#{studentName},#{classes},#{telephone},#{dormitory},#{data})
+    </insert>
+
+    <!--修改学生入住信息记录-->
+    <update id="updateByPrimaryKeyReport" parameterType="com.qwn.domitoryProject.entity.Report">
+        update t_report
+        <set>
+            <if test="studentId != null">
+                studentId = #{studentId,jdbcType=INTEGER},
+            </if>
+            <if test="studentName != null">
+                studentName = #{studentName,jdbcType=VARCHAR},
+            </if>
+            <if test="classes != null">
+                classes = #{classes,jdbcType=VARCHAR},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone,jdbcType=INTEGER},
+            </if>
+            <if test="dormitory != null">
+                dormitory = #{dormitory,jdbcType=VARCHAR},
+            </if>
+            <if test="data != null">
+                data = #{data,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!--删除学生入住信息-->
+    <delete id="deleteByPrimaryKeyReport" parameterType="java.lang.Integer">
+    delete from t_report
+    where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+</mapper>

@@ -111,13 +111,14 @@ public class RepairController {
    */
     @PostMapping(value="/update")
     @ResponseBody
-    public Map<String,String> update(@RequestParam("buildingId") String buildingId, @RequestParam("floorId") String floorId,
+    public Map<String,String> update(@RequestParam("id") Integer id,@RequestParam("buildingId") String buildingId, @RequestParam("floorId") String floorId,
                                      @RequestParam("roomId") String roomId, @RequestParam("name") String name,
                                      @RequestParam("descr") String descr, @RequestParam("data") String data,
-                                     @RequestParam("applicant") String applicant,HttpSession session){
+                                     @RequestParam("applicant") String applicant,@RequestParam("state") Integer state,HttpSession session){
 
         Map<String,String> map=new HashMap<>();
         Repair repair=new Repair();
+        repair.setId(id);
         repair.setBuildingId(buildingId);
         repair.setFloorId(floorId);
         repair.setName(name);
@@ -125,6 +126,7 @@ public class RepairController {
         repair.setData(data);
         repair.setDescr(descr);
         repair.setApplicant(applicant);
+        repair.setState(state);
         try{
             repairService.update(repair);
             map.put("success","true");
@@ -143,8 +145,8 @@ public class RepairController {
     @ResponseBody
     public Map<String,String> removeRepairs(@RequestParam("id") Integer id,HttpSession session){
         Map<String,String> result = new HashMap<>();
-        if(((Repair)session.getAttribute(DmsConstants.SESSION_REPAIR)).getId().equals(id)){
-            result.put("msg","违法操作！不能删除自己！");
+        if(StringUtils.isEmpty(String.valueOf(id))){
+            result.put("msg","当前报修记录id为空");
             return result;
         }
         try{

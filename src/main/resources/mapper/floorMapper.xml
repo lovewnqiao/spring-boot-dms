@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qwn.domitoryProject.mapper.floorMapper" >
+
+    <resultMap id="BaseResultMap" type="com.qwn.domitoryProject.entity.Floor" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="buildingId" property="buildingId" jdbcType="VARCHAR" />
+        <result column="floorId" property="floorId" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        buildingId,
+        floorId,
+        name
+    </sql>
+
+    <!--查询楼层记录-->
+    <select id="selectAllFloor" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_floor
+    </select>
+
+    <!--查询楼层数量-->
+    <select id="getFloornumber" resultType="java.lang.Integer">
+     select count(*) from t_floor
+    </select>
+
+    <!--新增楼层 自增長-->
+    <insert id="addFloor" parameterType="com.qwn.domitoryProject.entity.Floor" useGeneratedKeys="false" keyProperty="id">
+        INSERT INTO t_floor (buildingId,floorId,name) VALUES (#{buildingId},#{floorId},#{name})
+    </insert>
+
+    <!--修改楼层记录-->
+    <update id="updateByPrimaryKeyFloor" parameterType="com.qwn.domitoryProject.entity.Floor">
+        update t_floor
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="buildingId != null">
+                buildingId = #{buildingId,jdbcType=VARCHAR},
+            </if>
+            <if test="floorId != null">
+                floorId = #{floorId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!--删除楼层记录-->
+    <delete id="deleteByPrimaryKeyFloor" parameterType="java.lang.Integer">
+    delete from t_floor
+    where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+</mapper>

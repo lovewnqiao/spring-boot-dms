@@ -47,6 +47,9 @@
     <update id="updateByPrimaryKeyRepair" parameterType="com.qwn.domitoryProject.entity.Repair">
         update t_repair
         <set>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER},
+            </if>
             <if test="buildingId != null">
                 buildingId = #{buildingId,jdbcType=VARCHAR},
             </if>
@@ -57,7 +60,7 @@
                 roomId = #{roomId,jdbcType=VARCHAR},
             </if>
             <if test="name != null">
-                name = #{name,jdbcType=INTEGER},
+                name = #{name,jdbcType=VARCHAR},
             </if>
             <if test="descr != null">
                 descr = #{descr,jdbcType=VARCHAR},

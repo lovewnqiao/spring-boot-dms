@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qwn.domitoryProject.mapper.buildingMapper" >
+
+    <resultMap id="BaseResultMap" type="com.qwn.domitoryProject.entity.Building" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="buildingId" property="buildingId" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id,
+        buildingId,
+        name
+    </sql>
+
+    <!--查询宿舍楼记录-->
+    <select id="selectAllBuilding" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_building
+    </select>
+
+    <!--查询宿舍楼记录数量-->
+    <select id="getBuildingnumber" resultType="java.lang.Integer">
+     select count(*) from t_building
+    </select>
+
+    <!--新增宿舍楼自增長-->
+    <insert id="addBuilding" parameterType="com.qwn.domitoryProject.entity.Building" useGeneratedKeys="false" keyProperty="id">
+        INSERT INTO t_building (buildingId,name) VALUES (#{buildingId},#{name})
+    </insert>
+
+    <!--修改宿舍楼信息记录-->
+    <update id="updateByPrimaryKeyBuilding" parameterType="com.qwn.domitoryProject.entity.Building">
+        update t_building
+        <set>
+            <if test="id != null">
+                id = #{id,jdbcType=INTEGER},
+            </if>
+            <if test="buildingId != null">
+                buildingId = #{buildingId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <!--删除宿舍楼信息-->
+    <delete id="deleteByPrimaryKeyBuilding" parameterType="java.lang.Integer">
+    delete from t_building
+    where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+
+</mapper>
