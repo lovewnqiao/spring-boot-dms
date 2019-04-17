@@ -10,17 +10,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/user")
 public class UserController {
     @Autowired
     private UserService userService;
+
     //新增学生信息
     @ResponseBody
     @RequestMapping(value = "/add", produces = {"application/json;charset=UTF-8"})
@@ -71,6 +69,31 @@ public class UserController {
         resultMap.put("rows", userinforlist);
         return resultMap;
     }
+
+    /**
+     * 查询所有宿舍楼号
+     *
+     * @return
+     */
+    @RequestMapping("building/names")
+    @ResponseBody
+    public Set getBuildingNames() {
+        Set<String> set = new HashSet<>();
+        set.add("1栋");
+        set.add("3栋");
+        set.add("4栋");
+        set.add("5栋");
+        Set<Map<String, String>> buildings = new HashSet<>();
+        set.forEach(s -> {
+            Map<String, String> map = new HashMap<>(1);
+            map.put("text", s);
+            buildings.add(map);
+        });
+
+
+        return buildings;
+    }
+
 
     /*
     进入学生信息界面
@@ -169,7 +192,7 @@ public class UserController {
 
     /***
      * 个人信息修改（年龄，性别，电话）
-    */
+     */
     @RequestMapping(value = "/myInfo", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public ModelAndView updateMyInfo(@RequestParam("userId") String userId, @RequestParam("name") String name, @RequestParam("sex") String sex,
@@ -265,6 +288,7 @@ public class UserController {
         model.setViewName("/common/success");
         return model;
     }
+
     /***
      * 退出系统，返回到首页
      */
