@@ -21,14 +21,14 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private UserService userService;
-
+    //新增学生信息
     @ResponseBody
     @RequestMapping(value = "/add", produces = {"application/json;charset=UTF-8"})
     public int addUser(User user) {
         return userService.addUser(user);
     }
 
-
+    //删除学生信息
     @ResponseBody
     @RequestMapping(value = "delete/{key}", produces = {"application/json;charset=UTF-8"})
     public int deleteUser(@PathVariable("key") String key) {
@@ -167,8 +167,8 @@ public class UserController {
         return result;
     }
 
-    /*
-           个人信息修改（年龄，性别，电话）
+    /***
+     * 个人信息修改（年龄，性别，电话）
     */
     @RequestMapping(value = "/myInfo", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
@@ -202,7 +202,7 @@ public class UserController {
 
 
     /***
-     * 个人信息修改（密码）
+     * 个人信息修改
      */
     @RequestMapping(value = "myInfoPassword", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView myInfo(HttpSession session) {
@@ -218,7 +218,7 @@ public class UserController {
     }
 
     /***
-     * 这个方法写得 不好  之后在整理思路
+     * 修改用户密码
      */
     @RequestMapping(value = "/modifypassword", method = {RequestMethod.POST, RequestMethod.GET})//保存新增用户和修改的用户信息
     @ResponseBody
@@ -265,7 +265,9 @@ public class UserController {
         model.setViewName("/common/success");
         return model;
     }
-
+    /***
+     * 退出系统，返回到首页
+     */
     @RequestMapping(value = "/exit", method = {RequestMethod.POST, RequestMethod.GET})
     public ModelAndView exit(HttpSession session) {
         session.removeAttribute(DmsConstants.SESSION_USER);

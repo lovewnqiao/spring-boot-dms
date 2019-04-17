@@ -155,6 +155,9 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.qwn.domitoryProject.entity.User">
         update t_user_info
         <set>
+            <if test="userId != null">
+                userId = #{userId,jdbcType=VARCHAR},
+            </if>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
             </if>
