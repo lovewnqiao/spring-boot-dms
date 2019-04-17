@@ -61,9 +61,14 @@ public class UserController {
     public Map userinforlist(HttpServletRequest request) {
         int page = Integer.parseInt(request.getParameter("page"));
         int pageSzie = Integer.parseInt(request.getParameter("rows"));//pageSzie
+        String building = request.getParameter("building");
+        if("-".equals(building)){
+            building=null;
+        }
+        String name = request.getParameter("name");
         int startRecord = (page - 1) * pageSzie + 1;
         int total = userService.getUsernumber();
-        List<User> userinforlist = userService.findAllUser(startRecord, pageSzie);
+        List<User> userinforlist = userService.findAllUser(startRecord, pageSzie, building, name);
         Map resultMap = new HashMap();
         resultMap.put("total", total - 1);
         resultMap.put("rows", userinforlist);
@@ -79,6 +84,7 @@ public class UserController {
     @ResponseBody
     public Set getBuildingNames() {
         Set<String> set = new HashSet<>();
+        set.add("-");
         set.add("1栋");
         set.add("3栋");
         set.add("4栋");

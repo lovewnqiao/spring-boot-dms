@@ -30,6 +30,12 @@ public class UserServiceImpl implements UserService {
        PageHelper.startPage(pageNum, pageSize);
        return userMapper.selectAllUser();
    }
+
+    @Override
+    public List<User> findAllUser(int pageNum, int pageSize, String building, String name) {
+        return userMapper.pagingQueryUser(building, name);
+    }
+
     /***
      * 通过id 删除用户
      *

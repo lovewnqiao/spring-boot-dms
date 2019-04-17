@@ -198,4 +198,19 @@
         from t_user_info where isAdmin=0
     </select>
 
+    <select id="pagingQueryUser" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_user_info
+        <where>
+            isAdmin=0
+            <if test="building != null and building.length()>0">
+                and building=  #{building}
+            </if>
+            <if test="name != null and name.length()>0">
+                and `name`=  #{name}
+            </if>
+        </where>
+
+    </select>
 </mapper>

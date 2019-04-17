@@ -18,6 +18,8 @@ public interface UserService {
      * 分页查询
      */
      List<User> findAllUser(int pageNum, int pageSize);
+
+     List<User> findAllUser(int pageNum, int pageSize, String building, String name);
      /**
       * 删除用户
       * */

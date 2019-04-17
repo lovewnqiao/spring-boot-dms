@@ -52,6 +52,8 @@ public interface userMapper {
     int updateByPrimaryKey(User record);
     // 查询全部用户
     List<User> selectAllUser();
+
+    List<User> pagingQueryUser(@Param("building") String building,@Param("name")  String name);
     /***
      * 用户登录
      */

@@ -77,6 +77,8 @@
                        url="/user/building/names"
                        valueField="text" textField="text">
                 </input>
+                <input id="information_name"></input>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-query" plain="true" onclick="informationQuery()">查询</a>
             </div>
         </div>
 
@@ -191,8 +193,12 @@
         }
     });
 
-    $(function () {
-        //datagrid
+
+    /**
+     * 查询
+     */
+    function informationQuery(){
+
         $("#userInformationDatagrid").datagrid({
             url: '/user/userinforlist',
             pagination: true,
@@ -203,8 +209,11 @@
 
         //将表单数据转为json
         function form2Json() {
+            // 宿舍楼
             var building =$('#information_building').combobox('getValue')
-            return {"building": building}
+            console.log('building:'+building)
+            var name=$('#information_name').val();
+            return {"building": building,"name":name}
         }
-    })
+    }
 </script>
