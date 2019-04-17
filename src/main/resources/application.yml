@@ -6,9 +6,10 @@ server:
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://127.0.0.1:3306/dms?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
-        username: root
-        password: 323626
+#        url: jdbc:mysql://127.0.0.1:3306/dms?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+        url: jdbc:mysql://5883133e3da2d.gz.cdb.myqcloud.com:14387/qwn?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false
+        username: qwn
+        password: qwn@123321
         driver-class-name: com.mysql.jdbc.Driver
 
     thymeleaf:
