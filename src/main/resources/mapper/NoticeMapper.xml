@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qwn.domitoryProject.mapper.NoticeMapper">
+
+    <select id="selectListByClassIfy" resultType="java.util.Map">
+        select a.*,b.classifyName from t_notice a,t_classify b
+        <where>
+            a.classify_id =b.id
+            <if test="classifyId != null">
+                and a.classify_id=  #{classifyId}
+            </if>
+        </where>
+    </select>
+</mapper>

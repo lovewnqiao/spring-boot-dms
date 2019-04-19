@@ -2,7 +2,6 @@ package com.qwn.domitoryProject.controller;
 
 
 import com.qwn.domitoryProject.entity.Floor;
-import com.qwn.domitoryProject.entity.Floor;
 import com.qwn.domitoryProject.service.FloorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -95,14 +94,14 @@ public class FloorController {
      */
     @RequestMapping("buildingId/names")
     @ResponseBody
-    public Set getBuildingNames() {
-        Set<String> set = new HashSet<>();
+    public List getBuildingNames() {
+        List<String> set = new ArrayList<>();
         set.add("-");
         set.add("1栋");
         set.add("2栋");
         set.add("3栋");
         set.add("4栋");
-        Set<Map<String, String>> buildings = new HashSet<>();
+        List<Map<String, String>> buildings = new ArrayList<>();
         set.forEach(s -> {
             Map<String, String> map = new HashMap<>(1);
             map.put("text", s);
