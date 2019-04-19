@@ -25,9 +25,31 @@
         from t_room
     </select>
 
-    <!--查询维修记录数量-->
+    <!--查询房间记录数量-->
     <select id="getRoomnumber" resultType="java.lang.Integer">
      select count(*) from t_room
+    </select>
+
+    <!--按条件查询房间信息-->
+    <select id="pagingQueryRoom" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_room
+        <where>
+            <if test="buildingId != null and buildingId.length()>0">
+                buildingId=  #{buildingId}
+            </if>
+            <if test="floorId != null and floorId.length()>0">
+                and `floorId`=  #{floorId}
+            </if>
+            <if test="studentName != null and studentName.length()>0">
+                and `studentName` like  '%${studentName}%'
+            </if>
+            <if test="roomId != null and roomId.length()>0">
+                and `roomId`=  #{roomId}
+            </if>
+        </where>
+
     </select>
 
     <!--新增房间自增長-->

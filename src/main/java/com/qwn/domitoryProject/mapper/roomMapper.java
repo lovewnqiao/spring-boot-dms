@@ -14,6 +14,10 @@ public interface roomMapper {
     // 查询全部房间记录
     List<Room> selectAllRoom();
 
+    //按照条件查询维修记录
+    List<Room> pagingQueryRoom(@Param("buildingId") String buildingId,@Param("floorId")  String floorId,@Param("roomId")  String roomId,@Param("studentName")  String studentName);
+
+
     //新增房间记录
     int addRoom(@Param("buildingId") String buildingId, @Param("floorId") String floorId,
                   @Param("roomId") String roomId, @Param("studentName") String studentName);

@@ -1,7 +1,6 @@
 package com.qwn.domitoryProject.mapper;
 
 import com.qwn.domitoryProject.entity.Repair;
-import com.qwn.domitoryProject.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -20,6 +19,9 @@ public interface repairMapper {
     int addRepair(@Param("buildingId") String buildingId, @Param("floorId") String floorId,
                   @Param("roomId") String roomId, @Param("name") String name, @Param("descr") String descr,
                   @Param("data") String data, @Param("applicant") String applicant);
+
+    //按照条件查询维修记录
+    List<Repair> pagingQueryRepair(@Param("buildingId") String buildingId,@Param("name")  String name,@Param("applicant")  String applicant,@Param("state")  String state);
 
     //修改维修记录
     int updateByPrimaryKeyRepair(Repair repair);

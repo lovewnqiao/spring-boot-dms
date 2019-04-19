@@ -22,6 +22,11 @@ public class RepairService {
         return repairMapper.selectAllRepair();
     }
 
+    //按照条件查询维修记录
+    public List<Repair> selectRepairByCondition(int pageNum, int pageSize, String buildingId, String name,  String applicant,String state) {
+        return repairMapper.pagingQueryRepair(buildingId, name,applicant,state);
+    }
+
     //注册新用户
     public int addRepair(String buildingId,String flooorId,String roomId,String name,String descr,String data,String applicant){
         /**
@@ -40,7 +45,7 @@ public class RepairService {
         return repairMapper.updateByPrimaryKeyRepair(repair);
     }
 
-    public int getUsernumber(){
+    public int getRepairnumber(){
         return repairMapper.getRepairnumber();
     }
 

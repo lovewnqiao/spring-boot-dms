@@ -21,7 +21,10 @@ public class RoomService {
         PageHelper.startPage(pageNum, pageSize);
         return roomMapper.selectAllRoom();
     }
-
+    //按照条件查询房间记录
+    public List<Room> selectRoomByCondition(int pageNum, int pageSize, String buildingId, String floorId,  String roomId,String studengName) {
+        return roomMapper.pagingQueryRoom(buildingId, floorId,roomId,studengName);
+    }
     //添加新房间
     public int addRoom(String buildingId,String flooorId,String roomId,String studentName){
         /**
@@ -40,7 +43,7 @@ public class RoomService {
         return roomMapper.updateByPrimaryKeyRoom(room);
     }
 
-    public int getUsernumber(){
+    public int getRoomNumber(){
         return roomMapper.getRoomnumber();
     }
 

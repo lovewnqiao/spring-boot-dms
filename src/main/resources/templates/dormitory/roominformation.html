@@ -53,6 +53,18 @@
             <a href="/room/roomAddPage" target="_blank">新增房间</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="removeRoom()">删除房间</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="editRoom()">修改房间</a>
+
+            <div style="float: right">
+                <input id="information_buildingId" style="width:100px"
+                       url="/room/buildingId/names"
+                       valueField="text" textField="text"
+                       placeholder="宿舍楼">
+                </input>
+                <input id="floorId" placeholder="楼层"></input>
+                <input id="roomId" placeholder="房间"></input>
+                <input id="studentName" placeholder="姓名"></input>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-query" plain="true" onclick="informationQuery()">查询</a>
+            </div>
         </div>
 
     </div>
@@ -91,3 +103,38 @@
 
 </body>
 </html>
+
+<script>
+    // 选择宿舍楼
+    $('#information_buildingId').combobox({
+        formatter: function (row) {
+            console.log(row)
+            return row.text;
+        }
+    });
+
+    /**
+     * 查询
+     */
+    function informationQuery(){
+
+        $("#datagrid").datagrid({
+            url: '/room/conRoomList',
+            pagination: true,
+            pageSize: 15,
+            pageList: [5, 10, 15, 20],
+            queryParams: form2Json("searchform"),　　//关键之处,指定查询条件
+        })
+
+        //将表单数据转为json
+        function form2Json() {
+            // 宿舍楼
+            var buildingId =$('#information_buildingId').combobox('getValue')
+            console.log('buildingId:'+buildingId)
+            var floorId=$('#floorId').val();
+            var roomId=$('#roomId').val();
+            var studentName=$('#studentName').val();
+            return {"buildingId": buildingId,"floorId":floorId,"roomId":roomId,"studentName":studentName}
+        }
+    }
+</script>

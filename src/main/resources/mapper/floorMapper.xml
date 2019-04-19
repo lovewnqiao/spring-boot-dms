@@ -22,6 +22,21 @@
         <include refid="Base_Column_List" />
         from t_floor
     </select>
+    <!--按照条件查询楼层记录-->
+    <select id="pagingQueryFloor" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_floor
+        <where>
+            <if test="buildingId != null and buildingId.length()>0">
+                buildingId=  #{buildingId}
+            </if>
+            <if test="floorId != null and floorId.length()>0">
+                and `floorId`=  #{floorId}
+            </if>
+        </where>
+
+    </select>
 
     <!--查询楼层数量-->
     <select id="getFloornumber" resultType="java.lang.Integer">

@@ -18,6 +18,9 @@ public interface buildingMapper {
     int addBuilding(@Param("buildingId") String buildingId,
                   @Param("name") String name);
 
+    //按照条件查询维修记录
+    List<Building> pagingQueryBuilding(@Param("buildingId") String buildingId);
+
     //修改宿舍楼记录
     int updateByPrimaryKeyBuilding(Building building);
 

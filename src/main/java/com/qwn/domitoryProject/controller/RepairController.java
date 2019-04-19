@@ -3,6 +3,7 @@ package com.qwn.domitoryProject.controller;
 
 import com.qwn.domitoryProject.constant.DmsConstants;
 import com.qwn.domitoryProject.entity.Repair;
+import com.qwn.domitoryProject.entity.User;
 import com.qwn.domitoryProject.service.RepairService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/repair")
@@ -51,8 +50,8 @@ public class RepairController {
         return repairService.update(repair);
     }
 
-    /*
-       查询维修记录列表
+    /**
+     * 查询维修记录列表
     */
     @PostMapping(value = "/repairlist")
     @ResponseBody
@@ -60,12 +59,60 @@ public class RepairController {
         int page=Integer.parseInt(request.getParameter("page"));
         int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
         int startRecord=(page-1)*pageSzie+1;
-        int total=repairService.getUsernumber();
+        int total=repairService.getRepairnumber();
         List<Repair> repairlist=repairService.selectAllRepair(startRecord,pageSzie);
         Map resultMap=new HashMap();
         resultMap.put("total",total-1);
         resultMap.put("rows",repairlist);
         return resultMap;
+    }
+
+
+    /**
+     * 条件查询学生信息列表
+    */
+    @PostMapping(value = "/conRepairList")
+    @ResponseBody
+    public Map conRepairList(HttpServletRequest request) {
+        int page = Integer.parseInt(request.getParameter("page"));
+        int pageSzie = Integer.parseInt(request.getParameter("rows"));//pageSzie
+        String buildingId = request.getParameter("buildingId");
+        String applicant = request.getParameter("applicant");
+        String state = request.getParameter("state");
+        if("-".equals(buildingId)){
+            buildingId=null;
+        }
+        String name = request.getParameter("name");
+        int startRecord = (page - 1) * pageSzie + 1;
+        int total = repairService.getRepairnumber();
+        List<Repair> conRepairList = repairService.selectRepairByCondition(startRecord, pageSzie, buildingId, name,applicant,state);
+        Map resultMap = new HashMap();
+        resultMap.put("total", total - 1);
+        resultMap.put("rows", conRepairList);
+        return resultMap;
+    }
+
+    /**
+     * 查询所有宿舍楼号
+     *
+     * @return
+     */
+    @RequestMapping("buildingId/names")
+    @ResponseBody
+    public Set getBuildingNames() {
+        Set<String> set = new HashSet<>();
+        set.add("-");
+        set.add("1栋");
+        set.add("2栋");
+        set.add("3栋");
+        set.add("4栋");
+        Set<Map<String, String>> buildings = new HashSet<>();
+        set.forEach(s -> {
+            Map<String, String> map = new HashMap<>(1);
+            map.put("text", s);
+            buildings.add(map);
+        });
+        return buildings;
     }
 
 

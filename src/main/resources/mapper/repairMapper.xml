@@ -82,6 +82,27 @@
     delete from t_repair
     where id = #{id,jdbcType=INTEGER}
     </delete>
+    <!--按照条件查询维修记录-->
+    <select id="pagingQueryRepair" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_repair
+        <where>
+            <if test="buildingId != null and buildingId.length()>0">
+                 buildingId=  #{buildingId}
+            </if>
+            <if test="name != null and name.length()>0">
+                and `name`=  #{name}
+            </if>
+            <if test="applicant != null and applicant.length()>0">
+                and `applicant`=  #{applicant}
+            </if>
+            <if test="state != null and state.length()>0">
+                and `state`=  #{state}
+            </if>
+        </where>
+
+    </select>
 
 
 </mapper>

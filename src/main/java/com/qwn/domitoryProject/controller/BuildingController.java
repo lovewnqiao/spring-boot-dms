@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/building")
@@ -58,12 +56,58 @@ public class BuildingController {
         int page=Integer.parseInt(request.getParameter("page"));
         int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
         int startRecord=(page-1)*pageSzie+1;
-        int total=buildingService.getUsernumber();
+        int total=buildingService.getBuildingNumber();
         List<Building> buildinglist=buildingService.selectAllBuilding(startRecord,pageSzie);
         Map resultMap=new HashMap();
         resultMap.put("total",total-1);
         resultMap.put("rows",buildinglist);
         return resultMap;
+    }
+
+
+
+    /**
+     * 条件查询学生信息列表
+     */
+    @PostMapping(value = "/conBuildingList")
+    @ResponseBody
+    public Map conRepairList(HttpServletRequest request) {
+        int page = Integer.parseInt(request.getParameter("page"));
+        int pageSzie = Integer.parseInt(request.getParameter("rows"));//pageSzie
+        String buildingId = request.getParameter("buildingId");
+        if("-".equals(buildingId)){
+            buildingId=null;
+        }
+        int startRecord = (page - 1) * pageSzie + 1;
+        int total = buildingService.getBuildingNumber();
+        List<Building> conRepairList = buildingService.selectBuildingByCondition(startRecord, pageSzie, buildingId);
+        Map resultMap = new HashMap();
+        resultMap.put("total", total - 1);
+        resultMap.put("rows", conRepairList);
+        return resultMap;
+    }
+
+    /**
+     * 查询所有宿舍楼号
+     *
+     * @return
+     */
+    @RequestMapping("buildingId/names")
+    @ResponseBody
+    public Set getBuildingNames() {
+        Set<String> set = new HashSet<>();
+        set.add("-");
+        set.add("1栋");
+        set.add("2栋");
+        set.add("3栋");
+        set.add("4栋");
+        Set<Map<String, String>> buildings = new HashSet<>();
+        set.forEach(s -> {
+            Map<String, String> map = new HashMap<>(1);
+            map.put("text", s);
+            buildings.add(map);
+        });
+        return buildings;
     }
 
 

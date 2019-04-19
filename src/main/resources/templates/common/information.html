@@ -16,27 +16,21 @@
     .datagrid-btable {
         width: 100%;
     }
-
     .datagrid-header-inner {
         width: 100%;
     }
-
     .datagrid-header {
         width: 100%;
     }
-
     .datagrid-htable {
         width: 100%;
     }
-
     .datagrid-cell {
         margin: auto;
     }
-
     .fitem {
         text-align: center
     }
-
     .ftitle {
         text-align: center
     }
@@ -48,7 +42,7 @@
     </div>
 
     <div data-options="region:'center',title:'学生列表'">
-        <table id="userInformationDatagrid" class="easyui-datagrid" style="width:100%;height:100%"
+        <table id="datagrid" class="easyui-datagrid" style="width:100%;height:100%"
                url="/user/userinforlist"
                toolbar="#dgtoolbar" pagination="true"
                pageSize="25" pageList="[25,15,10]"
@@ -192,21 +186,17 @@
             return row.text;
         }
     });
-
-
     /**
      * 查询
      */
     function informationQuery(){
-
-        $("#userInformationDatagrid").datagrid({
+        $("#datagrid").datagrid({
             url: '/user/userinforlist',
             pagination: true,
             pageSize: 15,
             pageList: [5, 10, 15, 20],
             queryParams: form2Json("searchform"),　　//关键之处,指定查询条件
         })
-
         //将表单数据转为json
         function form2Json() {
             // 宿舍楼

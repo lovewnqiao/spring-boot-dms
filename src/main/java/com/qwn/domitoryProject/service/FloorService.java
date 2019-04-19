@@ -22,6 +22,10 @@ public class FloorService {
         return floorMapper.selectAllFloor();
     }
 
+    //按照条件查询楼层记录
+    public List<Floor> selectFloorByCondition(int pageNum, int pageSize, String buildingId,String floorId) {
+        return floorMapper.pagingQueryFloor(buildingId, floorId);
+    }
     //添加新楼层
     public int addFloor(String buildingId,String flooorId,String name){
         /**
@@ -40,7 +44,7 @@ public class FloorService {
         return floorMapper.updateByPrimaryKeyFloor(floor);
     }
 
-    public int getUsernumber(){
+    public int getFloorNumber(){
         return floorMapper.getFloornumber();
     }
 

@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/report")
@@ -58,12 +56,59 @@ public class ReportController {
         int page=Integer.parseInt(request.getParameter("page"));
         int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
         int startRecord=(page-1)*pageSzie+1;
-        int total=reportService.getReportnumber();
+        int total=reportService.getReportNumber();
         List<Report> reportlist=reportService.selectAllReport(startRecord,pageSzie);
         Map resultMap=new HashMap();
         resultMap.put("total",total-1);
         resultMap.put("rows",reportlist);
         return resultMap;
+    }
+
+    /**
+     * 条件查询学生入住信息
+     */
+    @PostMapping(value = "/conReportList")
+    @ResponseBody
+    public Map conRepairList(HttpServletRequest request) {
+        int page = Integer.parseInt(request.getParameter("page"));
+        int pageSzie = Integer.parseInt(request.getParameter("rows"));//pageSzie
+        String dormitory = request.getParameter("dormitory");
+        String studentName = request.getParameter("studentName");
+        String classes = request.getParameter("classes");
+        if("-".equals(dormitory)){
+            dormitory=null;
+        }
+        String data = request.getParameter("data");
+        int startRecord = (page - 1) * pageSzie + 1;
+        int total = reportService.getReportNumber();
+        List<Report> conRepairList = reportService.selectReportByCondition(startRecord, pageSzie, studentName, classes,dormitory,data);
+        Map resultMap = new HashMap();
+        resultMap.put("total", total - 1);
+        resultMap.put("rows", conRepairList);
+        return resultMap;
+    }
+
+    /**
+     * 查询所有宿舍楼号
+     *
+     * @return
+     */
+    @RequestMapping("dormitory/names")
+    @ResponseBody
+    public Set getDormitoryNames() {
+        Set<String> set = new HashSet<>();
+        set.add("-");
+        set.add("1108");
+        set.add("1208");
+        set.add("1308");
+        set.add("1408");
+        Set<Map<String, String>> dormitorys = new HashSet<>();
+        set.forEach(s -> {
+            Map<String, String> map = new HashMap<>(1);
+            map.put("text", s);
+            dormitorys.add(map);
+        });
+        return dormitorys;
     }
 
 

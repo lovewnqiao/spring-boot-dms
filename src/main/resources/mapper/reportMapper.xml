@@ -29,6 +29,28 @@
         from t_report
     </select>
 
+    <!--按照条件查询维修记录-->
+    <select id="pagingQueryReport" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_report
+        <where>
+            <if test="studentName != null and studentName.length()>0">
+                studentName=  #{studentName}
+            </if>
+            <if test="classes != null and classes.length()>0">
+                and `classes`=  #{classes}
+            </if>
+            <if test="dormitory != null and dormitory.length()>0">
+                and `dormitory`=  #{dormitory}
+            </if>
+            <if test="data != null and data.length()>0">
+                and `data`=  #{data}
+            </if>
+        </where>
+
+    </select>
+
     <!--查询学生入住记录数量-->
     <select id="getReportnumber" resultType="java.lang.Integer">
      select count(*) from t_report

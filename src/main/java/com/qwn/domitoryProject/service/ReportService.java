@@ -22,6 +22,12 @@ public class ReportService {
         return reportMapper.selectAllReport();
     }
 
+
+    //按照条件查询学生入住信息
+    public List<Report> selectReportByCondition(int pageNum, int pageSize, String studentName, String classes,  String dormitory,String data) {
+        return reportMapper.pagingQueryReport(studentName, classes,dormitory,data);
+    }
+
     //添加入住信息
     public int addReport(String studentId,String studentName,String classes,String telephone,String dormitory,String data){
         /**
@@ -40,7 +46,7 @@ public class ReportService {
         return reportMapper.updateByPrimaryKeyReport(report);
     }
 
-    public int getReportnumber(){
+    public int getReportNumber(){
         return reportMapper.getReportnumber();
     }
 

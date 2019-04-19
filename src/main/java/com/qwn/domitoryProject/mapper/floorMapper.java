@@ -18,6 +18,10 @@ public interface floorMapper {
     int addFloor(@Param("buildingId") String buildingId, @Param("floorId") String floorId,
                  @Param("name") String name);
 
+    //按照条件查询楼层信息
+    List<Floor> pagingQueryFloor(@Param("buildingId") String buildingId,@Param("floorId")  String floorId);
+
+
     //修改楼层记录
     int updateByPrimaryKeyFloor(Floor floor);
 

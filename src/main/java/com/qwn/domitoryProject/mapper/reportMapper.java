@@ -19,6 +19,9 @@ public interface reportMapper {
                   @Param("classes") String classes, @Param("telephone") String telephone,
                   @Param("dormitory") String dormitory, @Param("data") String data);
 
+    //按照条件查询学生入住信息
+    List<Report> pagingQueryReport(@Param("studentName") String studentName,@Param("classes")  String classes,@Param("dormitory")  String dormitory,@Param("data")  String data);
+
     //修改学生入住记录
     int updateByPrimaryKeyReport(Report report);
 

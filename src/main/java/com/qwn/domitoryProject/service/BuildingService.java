@@ -3,7 +3,6 @@ package com.qwn.domitoryProject.service;
 import com.github.pagehelper.PageHelper;
 import com.qwn.domitoryProject.entity.Building;
 import com.qwn.domitoryProject.mapper.buildingMapper;
-import com.qwn.domitoryProject.mapper.repairMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +20,11 @@ public class BuildingService {
     public List<Building> selectAllBuilding(int pageNum, int pageSize){
         PageHelper.startPage(pageNum, pageSize);
         return buildingMapper.selectAllBuilding();
+    }
+
+    //按照条件查询宿舍楼记录
+    public List<Building> selectBuildingByCondition(int pageNum, int pageSize, String buildingId) {
+        return buildingMapper.pagingQueryBuilding(buildingId);
     }
 
     //添加宿舍楼
@@ -41,7 +45,7 @@ public class BuildingService {
         return buildingMapper.updateByPrimaryKeyBuilding(building);
     }
 
-    public int getUsernumber(){
+    public int getBuildingNumber(){
         return buildingMapper.getBuildingnumber();
     }
 

@@ -20,6 +20,18 @@
         <include refid="Base_Column_List" />
         from t_building
     </select>
+    <!--按照条件查询宿舍楼记录-->
+    <select id="pagingQueryBuilding" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_building
+        <where>
+            <if test="buildingId != null and buildingId.length()>0">
+                buildingId=  #{buildingId}
+            </if>
+        </where>
+
+    </select>
 
     <!--查询宿舍楼记录数量-->
     <select id="getBuildingnumber" resultType="java.lang.Integer">

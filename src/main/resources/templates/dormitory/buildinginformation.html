@@ -51,6 +51,14 @@
             <a href="/building/buildingAddPage" target="_blank">新增宿舍楼</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="removeBuilding()">删除宿舍楼信息</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="editBuilding()">修改宿舍楼信息</a>
+            <div style="float: right">
+                <input id="information_buildingId" style="width:100px"
+                       url="/building/buildingId/names"
+                       valueField="text" textField="text"
+                       placeholder="宿舍楼">
+                </input>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-query" plain="true" onclick="informationQuery()">查询</a>
+            </div>
         </div>
 
     </div>
@@ -81,3 +89,36 @@
 
 </body>
 </html>
+
+<script>
+    // 选择宿舍楼
+    $('#information_buildingId').combobox({
+        formatter: function (row) {
+            console.log(row)
+            return row.text;
+        }
+    });
+
+
+    /**
+     * 查询
+     */
+    function informationQuery(){
+
+        $("#datagrid").datagrid({
+            url: '/building/conBuildingList',
+            pagination: true,
+            pageSize: 15,
+            pageList: [5, 10, 15, 20],
+            queryParams: form2Json("searchform"),　　//关键之处,指定查询条件
+        })
+
+        //将表单数据转为json
+        function form2Json() {
+            // 宿舍楼
+            var buildingId =$('#information_buildingId').combobox('getValue')
+            console.log('buildingId:'+buildingId)
+            return {"buildingId": buildingId}
+        }
+    }
+</script>
