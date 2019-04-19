@@ -95,14 +95,14 @@ public class ReportController {
      */
     @RequestMapping("dormitory/names")
     @ResponseBody
-    public Set getDormitoryNames() {
-        Set<String> set = new HashSet<>();
+    public List getDormitoryNames() {
+        List<String> set = new ArrayList<>();
         set.add("-");
         set.add("1108");
         set.add("1208");
         set.add("1308");
         set.add("1408");
-        Set<Map<String, String>> dormitorys = new HashSet<>();
+        List<Map<String, String>> dormitorys = new ArrayList<>();
         set.forEach(s -> {
             Map<String, String> map = new HashMap<>(1);
             map.put("text", s);

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qwn.domitoryProject.mapper.noticeMapper" >
+<mapper namespace="com.qwn.domitoryProject.mapper.NoticeMapper">
+
+
 
     <resultMap id="BaseResultMap" type="com.qwn.domitoryProject.entity.Notice" >
         <id column="id" property="id" jdbcType="BIGINT" />
@@ -19,6 +21,16 @@
         applicant,
         date
     </sql>
+
+    <select id="selectListByClassIfy" resultType="java.util.Map">
+        select a.*,b.classifyName from t_notice a,t_classify b
+        <where>
+            a.classifyId =b.id
+            <if test="classifyId != null">
+                and a.classifyId=  #{classifyId}
+            </if>
+        </where>
+    </select>
 
     <!--查询通知分类记录-->
     <select id="selectAllNotice" resultMap="BaseResultMap">
@@ -71,6 +83,4 @@
     <select id="noticelistFindAll" resultType="com.qwn.domitoryProject.entity.Notice">
         select * from t_notice
     </select>
-
-
 </mapper>

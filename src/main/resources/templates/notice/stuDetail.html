@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:float="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/demo/demo.css"/>
+    <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/easyui/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/js1/classify.js"></script><!--注意修改-->
+</head>
+<style>
+    .datagrid-btable {
+        width: 100%;
+    }
+
+    .datagrid-header-inner {
+        width: 100%;
+    }
+
+    .datagrid-header {
+        width: 100%;
+    }
+
+    .datagrid-htable {
+        width: 100%;
+    }
+
+    .datagrid-cell {
+        margin: auto;
+    }
+
+    .fitem {
+        text-align: center
+    }
+
+    .ftitle {
+        text-align: center
+    }
+
+    .notice_detail .notice_detail_title{
+        width: 100%;
+        height: 50px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 27px;
+        color: #1c5895;
+        border-bottom: 3px solid #cedfea;
+    }
+    .notice_detail .notice_detail_sub {
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        font-size: 14px;
+    }
+    .notice_detail .notice_detail_content {
+        width: 100%;
+        height: 40px;
+        font-size: 15px;
+        line-height: 150%;
+    }
+</style>
+
+<body>
+
+<div class="notice_detail" style="padding: 20px">
+
+    <div class="notice_detail_title" th:text="${notice.title}" ></div>
+
+    <div class="notice_detail_sub"  th:text="'发布者:'+${notice.applicant}+'  发布时间：'+${notice.date}" ></div>
+
+    <div class="notice_detail_content" th:text="${notice.content}" ></div>
+
+</div>
+</body>
+</html>

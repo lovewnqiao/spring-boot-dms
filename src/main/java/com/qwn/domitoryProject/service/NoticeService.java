@@ -1,8 +1,7 @@
 package com.qwn.domitoryProject.service;
 
-import com.github.pagehelper.PageHelper;
 import com.qwn.domitoryProject.entity.Notice;
-import com.qwn.domitoryProject.mapper.noticeMapper;
+import com.qwn.domitoryProject.mapper.NoticeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +13,11 @@ public class NoticeService {
      * 注入dao
      */
     @Autowired
-    private noticeMapper noticeMapper;
+    private NoticeMapper noticeMapper;
 
     //查询宿舍楼列表
-    public List<Notice> selectAllNotice(int pageNum, int pageSize){
-        PageHelper.startPage(pageNum, pageSize);
-        return noticeMapper.selectAllNotice();
+    public List selectAllNotice(int pageNum, int pageSize){
+        return noticeMapper.selectListByClassIfy(null);
     }
 
     //添加宿舍楼
@@ -27,7 +25,8 @@ public class NoticeService {
         /**
          * 注意查看mapper中的注释
          */
-        return noticeMapper.addNotice(notice);
+        return  noticeMapper.insert(notice);
+//        return noticeMapper.addNotice(notice);
     }
 
     //通过id 删除宿舍楼记录

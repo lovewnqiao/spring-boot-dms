@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:float="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css"/>
+    <link rel="stylesheet" type="text/css" href="/easyui/demo/demo.css"/>
+    <script type="text/javascript" src="/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/easyui/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/js1/classify.js"></script><!--注意修改-->
+</head>
+<style>
+    .datagrid-btable {
+        width: 100%;
+    }
+
+    .datagrid-header-inner {
+        width: 100%;
+    }
+
+    .datagrid-header {
+        width: 100%;
+    }
+
+    .datagrid-htable {
+        width: 100%;
+    }
+
+    .datagrid-cell {
+        margin: auto;
+    }
+
+    .fitem {
+        text-align: center
+    }
+
+    .ftitle {
+        text-align: center
+    }
+</style>
+
+<body>
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'north'" style="width: 100%;height: 9%">
+    </div>
+
+    <div data-options="region:'center',title:'通知管理列表'">
+        <table id="datagrid" class="easyui-datagrid" style="width:100%;height:100%"
+               url="/student/notice/list">
+            <thead>
+            <tr>
+                <th data-options="field:'date',align:'center',width:'11%'">通知时间</th>
+                <th data-options="field:'classifyName',align:'center',width:'9%'">通知分类</th>
+                <th data-options="field:'id',align:'center',width:'9%'">通知分类id</th>
+                <th data-options="field:'title',align:'center',width:'11%',formatter:titleFormater">标题</th>
+                <th data-options="field:'applicant',align:'center',width:'11%'">作者</th>
+                <th data-options="field:'content',align:'center',width:'11%'">通知内容</th>
+
+            </tr>
+            </thead>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>
+<script>
+    $("#datagrid").datagrid({
+        url: '/student/notice/list',
+        pagination: true,
+        pageSize: 15,
+        pageList: [5, 10, 15, 20]
+    })
+
+    function titleFormater(value, row, index) {
+        console.log(row)
+        return '<a href="/student/notice/page/detail?id=' + row.id + '">'+value+'</a>';
+    }
+</script>

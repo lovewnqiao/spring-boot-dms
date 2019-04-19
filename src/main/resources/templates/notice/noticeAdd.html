@@ -29,7 +29,7 @@
                 type: 'post',
                 dataType: 'json',
                 success: function(data) {
-
+                    console.log(data)
                     /*var classifylist = eval('(' + data + ')');*/
                     /*var classifylist = JSON.parse(data)*/
                     /*如果是json
@@ -37,8 +37,8 @@
                      */
                     $.each(data, function(i) {
                         var classifyName = data[i].classifyName;
-
-                        var str = "<option value="+classifyName+">"+classifyName+"</option>"
+                        var id=data[i].id;
+                        var str = "<option value="+id+">"+classifyName+"</option>"
 
                         /*var str = "<li class='skill-" + percent + "' style = 'width:" + percent + "% ; background-color:" + bgcolor + "'>";
                         str += "<h4>" + name + "</h4>";

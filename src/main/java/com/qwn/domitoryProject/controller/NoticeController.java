@@ -61,7 +61,7 @@ public class NoticeController {
         int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
         int startRecord=(page-1)*pageSzie+1;
         int total=noticeService.getNoticenumber();
-        List<Notice> noticelist=noticeService.selectAllNotice(startRecord,pageSzie);
+        List noticelist=noticeService.selectAllNotice(startRecord,pageSzie);
         Map resultMap=new HashMap();
         resultMap.put("total",total-1);
         resultMap.put("rows",noticelist);
@@ -81,17 +81,18 @@ public class NoticeController {
     //新增通知分类信息
     @ResponseBody
     @RequestMapping(value = "/noticeAdd", produces = {"application/json;charset=UTF-8"})
-    public String addNotice(Notice notice,HttpSession session) {
+    public String addNotice(  Notice notice,HttpSession session) {
 
         if (StringUtils.isEmpty(notice.getClassifyId())) {
             return "通知分类不能为空";
         }
 
         User user = (User) session.getAttribute(DmsConstants.SESSION_USER);
-        notice.setApplicant(user.getName());
         if(user==null){
             return "未登录，请先登录！";
         } else {
+            notice.setApplicant(user.getName());
+
             int res = noticeService.addNotice(notice);
             if (res == 0) {
                 return "新增通知分类失败！";

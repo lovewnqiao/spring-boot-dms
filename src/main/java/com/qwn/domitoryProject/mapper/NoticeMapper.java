@@ -20,21 +20,4 @@ public interface NoticeMapper extends BaseMapper<Notice> {
      * @return
      */
     List<Map> selectListByClassIfy(@Param("classifyId") Integer classifyId);
-
-    // 查询全部通知分类记录
-    List<Notice> selectAllNotice();
-
-    //新增通知分类记录
-    int addNotice(Notice notice);
-
-    //修改通知分类记录
-    int updateByPrimaryKeyNotice(Notice notice);
-
-    //删除通知分类记录
-    int deleteByPrimaryKeyNotice(Integer Id);
-    //查询通知分类记录数量
-    int getNoticenumber();
-
-
-    List<Notice> noticelistFindAll();
 }
