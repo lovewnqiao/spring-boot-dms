@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加通知</title>
+    <script type="text/javascript" ></script>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+</head>
+<body style="background: url(/images/login2.jpg);background-size:cover;background-repeat:no-repeat;">
+<form action="/notice/noticeAdd" method="post">
+    <div style="font-size:21px;text-align:center;background: #008B8B;position:fixed;top:20%;left:35%;height: 368px; width: 350px;filter:alpha(Opacity=60);-moz-opacity:0.5;opacity: 0.5">
+        <div style="font-size:22px;height: 100px;width: 350px;background: #4682B4;filter:alpha(Opacity=60);-moz-opacity:0.5;opacity: 0.5">
+            <br>通知公告
+            <br>添加
+        </div>
+        分类:<select id="select" name="classifyId"></select></br>
+        主题:<input type="text" name="title" /></br>
+        内容:<input type="text" name="content" /></br>
+        日期:<input type="text" name="date" /></br>
+        <input type="submit" value="确定">
+    </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $.ajax({
+                /*这是json*/
+                //														url:'../my_blog_web/json/skill.json',
+                url: '/classify/classifylistFindAll',
+                type: 'post',
+                dataType: 'json',
+                success: function(data) {
+
+                    /*var classifylist = eval('(' + data + ')');*/
+                    /*var classifylist = JSON.parse(data)*/
+                    /*如果是json
+                     var skill = json.skill;
+                     */
+                    $.each(data, function(i) {
+                        var classifyName = data[i].classifyName;
+
+                        var str = "<option value="+classifyName+">"+classifyName+"</option>"
+
+                        /*var str = "<li class='skill-" + percent + "' style = 'width:" + percent + "% ; background-color:" + bgcolor + "'>";
+                        str += "<h4>" + name + "</h4>";
+                        str += "<p class='first-skill-intro'>" + comment + "</p>";
+                        str += "</li>";*/
+                        $('#select').append(str);
+                    })
+                }
+            })
+        })
+    </script>
+
+</form>
+</body>
+</html>

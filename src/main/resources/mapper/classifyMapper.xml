@@ -53,5 +53,9 @@
     where id = #{id,jdbcType=INTEGER}
     </delete>
 
+    <select id="classifylistFindAll" resultType="com.qwn.domitoryProject.entity.Classify">
+        select * from t_classify
+    </select>
+
 
 </mapper>

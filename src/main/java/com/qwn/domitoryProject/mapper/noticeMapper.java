@@ -1,6 +1,7 @@
 package com.qwn.domitoryProject.mapper;
 
 import com.qwn.domitoryProject.entity.Classify;
+import com.qwn.domitoryProject.entity.Notice;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -9,23 +10,23 @@ import java.util.List;
 
 @Mapper
 @Component
-public interface classifyMapper {
+public interface noticeMapper {
 
     // 查询全部通知分类记录
-    List<Classify> selectAllClassify();
+    List<Notice> selectAllNotice();
 
     //新增通知分类记录
-    int addClassify(@Param("classifyName") String classifyName,
-                    @Param("descr") String descr);
+    int addNotice(Notice notice);
 
     //修改通知分类记录
-    int updateByPrimaryKeyClassify(Classify classify);
+    int updateByPrimaryKeyNotice(Notice notice);
 
     //删除通知分类记录
-    int deleteByPrimaryKeyClassify(Integer Id);
+    int deleteByPrimaryKeyNotice(Integer Id);
     //查询通知分类记录数量
-    int getClassifynumber();
+    int getNoticenumber();
 
 
-    List<Classify> classifylistFindAll();
+    List<Notice> noticelistFindAll();
 }
+

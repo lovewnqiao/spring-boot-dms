@@ -45,4 +45,7 @@ public class ClassifyService {
     }
 
 
+    public List<Classify> classifylistFindAll() {
+        return classifyMapper.classifylistFindAll();
+    }
 }

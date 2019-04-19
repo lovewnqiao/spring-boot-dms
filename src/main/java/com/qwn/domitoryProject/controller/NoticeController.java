@@ -1,8 +1,10 @@
 package com.qwn.domitoryProject.controller;
 
 
-import com.qwn.domitoryProject.entity.Classify;
-import com.qwn.domitoryProject.service.ClassifyService;
+import com.qwn.domitoryProject.constant.DmsConstants;
+import com.qwn.domitoryProject.entity.Notice;
+import com.qwn.domitoryProject.entity.User;
+import com.qwn.domitoryProject.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -15,81 +17,82 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/classify")
-public class ClassifyController {
+@RequestMapping(value = "/notice")
+public class NoticeController {
     @Autowired
-    private ClassifyService classifyService ;
+    private NoticeService noticeService ;
 
     //通知分类信息管理
-    @RequestMapping(value = "/classifyinfomation", method = {RequestMethod.POST, RequestMethod.GET})
-    public String classifyinfomation(HttpSession session) {
-        return "/notice/classifyinformation";
+    @RequestMapping(value = "/noticeinfomation", method = {RequestMethod.POST, RequestMethod.GET})
+    public String noticeinfomation(HttpSession session) {
+        return "/notice/noticeinformation";
     }
     /**
      * 跳转到新增通知分类页面
      *
      * @return 新增通知分类信息页面
      */
-    @RequestMapping(value = {"/classifyAddPage"})
-    public String classifyAddpage() {
-        return "/notice/classifyAdd";
+    @RequestMapping(value = {"/noticeAddPage"})
+    public String noticeAddpage() {
+        return "/notice/noticeAdd";
     }
 
     //删除通知分类信息
     @ResponseBody
     @RequestMapping(value="delete/{key}", produces = {"application/json;charset=UTF-8"})
-    public int deleteClassify(@PathVariable("key") Integer key){
-        return classifyService.delete(key);
+    public int deleteNotice(@PathVariable("key") Integer key){
+        return noticeService.delete(key);
     }
 
     //修改通知分类信息
     @ResponseBody
     @RequestMapping(value = "/update", produces = {"application/json;charset=UTF-8"})
-    public int update(Classify classify){
-        return classifyService.update(classify);
+    public int update(Notice notice){
+        return noticeService.update(notice);
     }
 
     /*
        查询通知分类记录列表
     */
-    @PostMapping(value = "/classifylist")
+    @PostMapping(value = "/noticelist")
     @ResponseBody
-    public Map classifylist(HttpServletRequest request){
+    public Map noticelist(HttpServletRequest request){
         int page=Integer.parseInt(request.getParameter("page"));
         int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
         int startRecord=(page-1)*pageSzie+1;
-        int total=classifyService.getClassifynumber();
-        List<Classify> classifylist=classifyService.selectAllClassify(startRecord,pageSzie);
+        int total=noticeService.getNoticenumber();
+        List<Notice> noticelist=noticeService.selectAllNotice(startRecord,pageSzie);
         Map resultMap=new HashMap();
         resultMap.put("total",total-1);
-        resultMap.put("rows",classifylist);
+        resultMap.put("rows",noticelist);
         return resultMap;
     }
 
     /*
       查询通知分类记录列表
    */
-    @PostMapping(value = "/classifylistFindAll")
+    @PostMapping(value = "/noticelistFindAll")
     @ResponseBody
-    public List<Classify> classifylistFindAll(HttpServletRequest request){
-        List<Classify> classifylist= classifyService.classifylistFindAll();
-        return classifylist;
+    public List<Notice> noticelistFindAll(HttpServletRequest request){
+        List<Notice> noticelist= noticeService.noticelistFindAll();
+        return noticelist;
     }
 
     //新增通知分类信息
     @ResponseBody
-    @RequestMapping(value = "/classifyAdd", produces = {"application/json;charset=UTF-8"})
-    public String addClassify(@RequestParam("classifyName") String classifyName,
-                            @RequestParam("descr") String descr) {
+    @RequestMapping(value = "/noticeAdd", produces = {"application/json;charset=UTF-8"})
+    public String addNotice(Notice notice,HttpSession session) {
 
-        if (StringUtils.isEmpty(classifyName)) {
+        if (StringUtils.isEmpty(notice.getClassifyId())) {
             return "通知分类不能为空";
         }
 
-        if (StringUtils.isEmpty(descr)) {
-            return "通知分类描述为空，注册失败！！";
+        User user = (User) session.getAttribute(DmsConstants.SESSION_USER);
+        notice.setApplicant(user.getName());
+        if(user==null){
+            return "未登录，请先登录！";
         } else {
-            int res = classifyService.addClassify(classifyName,descr);
+            int res = noticeService.addNotice(notice);
             if (res == 0) {
                 return "新增通知分类失败！";
             } else {
@@ -104,16 +107,11 @@ public class ClassifyController {
      */
     @PostMapping(value="/update")
     @ResponseBody
-    public Map<String,String> update(@RequestParam("id") Integer id,@RequestParam("classifyName") String classifyName,
-                                     @RequestParam("descr") String descr,HttpSession session){
+    public Map<String,String> update(Notice notice,HttpSession session){
 
         Map<String,String> map=new HashMap<>();
-        Classify classify=new Classify();
-        classify.setId(id);
-        classify.setClassifyName(classifyName);
-        classify.setDescr(descr);
         try{
-            classifyService.update(classify);
+            noticeService.update(notice);
             map.put("success","true");
         }catch (Exception e){
             e.printStackTrace();
@@ -126,16 +124,16 @@ public class ClassifyController {
      * 删除通知分类信息返回map形式
      *
      */
-    @PostMapping(value = "/remove_classify")//删除通知分类记录
+    @PostMapping(value = "/remove_notice")//删除通知分类记录
     @ResponseBody
-    public Map<String,String> removeClassifys(@RequestParam("id") Integer id,HttpSession session){
+    public Map<String,String> removeNotices(@RequestParam("id") Integer id,HttpSession session){
         Map<String,String> result = new HashMap<>();
         if(StringUtils.isEmpty(String.valueOf(id))){
             result.put("msg","当前通知分类id为空");
             return result;
         }
         try{
-            classifyService.delete(id);
+            noticeService.delete(id);
             result.put("success","true");
             System.out.println("删除Id: "+id);
         }catch(Exception e) {
