@@ -13,10 +13,11 @@ public class StuNoticeService {
     @Autowired
     NoticeMapper noticeMapper;
 
-    public Notice detail(Integer id){
+    public Notice detail(Integer id) {
         return noticeMapper.selectById(id);
     }
-    public List<Map> list(){
-        return noticeMapper.selectListByClassIfy(null);
+
+    public List<Map> list() {
+        return noticeMapper.selectListByClassIfy(null, null);
     }
 }

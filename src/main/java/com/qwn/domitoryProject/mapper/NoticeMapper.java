@@ -19,7 +19,7 @@ public interface NoticeMapper extends BaseMapper<Notice> {
      * @param classifyId
      * @return
      */
-    List<Map> selectListByClassIfy(@Param("classifyId") Integer classifyId);
+    List<Map> selectListByClassIfy(@Param("classifyId") Integer classifyId, @Param("title") String title);
 
     // 查询全部通知分类记录
     List<Notice> selectAllNotice();
@@ -32,8 +32,9 @@ public interface NoticeMapper extends BaseMapper<Notice> {
 
     //删除通知分类记录
     int deleteByPrimaryKeyNotice(Integer Id);
+
     //查询通知分类记录数量
-    int getNoticenumber();
+    int getNoticenumber(@Param("classifyId") Integer classifyId, @Param("title") String title);
 
 
     List<Notice> noticelistFindAll();

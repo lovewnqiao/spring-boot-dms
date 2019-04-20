@@ -29,6 +29,9 @@
             <if test="classifyId != null">
                 and a.classifyId=  #{classifyId}
             </if>
+            <if test="title != null and title.length()>0">
+                and a.title=  #{title}
+            </if>
         </where>
     </select>
 
@@ -41,7 +44,15 @@
 
     <!--查询通知分类记录数量-->
     <select id="getNoticenumber" resultType="java.lang.Integer">
-        select count(*) from t_notice
+        select count(*) from t_notice a
+        <where>
+            <if test="classifyId != null">
+                and a.classifyId=  #{classifyId}
+            </if>
+            <if test="title != null and title.length()>0">
+                and a.title=  #{title}
+            </if>
+        </where>
     </select>
 
     <!--新增通知分类自增長-->

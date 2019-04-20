@@ -16,31 +16,32 @@ public class NoticeService {
     private NoticeMapper noticeMapper;
 
     //查询宿舍楼列表
-    public List selectAllNotice(int pageNum, int pageSize){
-        return noticeMapper.selectListByClassIfy(null);
+    public List selectAllNotice(Integer classifyId, String title) {
+        return noticeMapper.selectListByClassIfy(classifyId, title);
     }
 
     //添加宿舍楼
-    public int addNotice(Notice notice){
+    public int addNotice(Notice notice) {
         /**
          * 注意查看mapper中的注释
          */
-        return  noticeMapper.insert(notice);
+        return noticeMapper.insert(notice);
 //        return noticeMapper.addNotice(notice);
     }
 
     //通过id 删除宿舍楼记录
-    public int delete(Integer key){
+    public int delete(Integer key) {
 
-        return  noticeMapper.deleteByPrimaryKeyNotice(key);
+        return noticeMapper.deleteByPrimaryKeyNotice(key);
     }
+
     //宿舍楼用户
-    public int update(Notice notice){
+    public int update(Notice notice) {
         return noticeMapper.updateByPrimaryKeyNotice(notice);
     }
 
-    public int getNoticenumber(){
-        return noticeMapper.getNoticenumber();
+    public int getNoticenumber(Integer classifyId, String title) {
+        return noticeMapper.getNoticenumber(classifyId, title);
     }
 
 

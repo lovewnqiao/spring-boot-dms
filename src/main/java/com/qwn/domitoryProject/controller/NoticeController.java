@@ -20,13 +20,18 @@ import java.util.Map;
 @RequestMapping(value = "/notice")
 public class NoticeController {
     @Autowired
-    private NoticeService noticeService ;
+    private NoticeService noticeService;
+    @Autowired
+    HttpServletRequest request;
+    @Autowired
+    HttpSession session;
 
     //通知分类信息管理
     @RequestMapping(value = "/noticeinfomation", method = {RequestMethod.POST, RequestMethod.GET})
     public String noticeinfomation(HttpSession session) {
         return "/notice/noticeinformation";
     }
+
     /**
      * 跳转到新增通知分类页面
      *
@@ -39,16 +44,28 @@ public class NoticeController {
 
     //删除通知分类信息
     @ResponseBody
-    @RequestMapping(value="delete/{key}", produces = {"application/json;charset=UTF-8"})
-    public int deleteNotice(@PathVariable("key") Integer key){
+    @RequestMapping(value = "delete/{key}", produces = {"application/json;charset=UTF-8"})
+    public int deleteNotice(@PathVariable("key") Integer key) {
         return noticeService.delete(key);
     }
 
-    //修改通知分类信息
+
+    /**
+     * 修改通知分类信息
+     */
+    @PostMapping(value = "/update")
     @ResponseBody
-    @RequestMapping(value = "/update", produces = {"application/json;charset=UTF-8"})
-    public int update(Notice notice){
-        return noticeService.update(notice);
+    public Map<String, String> update(Notice notice) {
+
+        Map<String, String> map = new HashMap<>();
+        try {
+            noticeService.update(notice);
+            map.put("success", "true");
+        } catch (Exception e) {
+            e.printStackTrace();
+            map.put("msg", "请核对信息确保登录名唯一");
+        }
+        return map;
     }
 
     /*
@@ -56,15 +73,17 @@ public class NoticeController {
     */
     @PostMapping(value = "/noticelist")
     @ResponseBody
-    public Map noticelist(HttpServletRequest request){
-        int page=Integer.parseInt(request.getParameter("page"));
-        int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
-        int startRecord=(page-1)*pageSzie+1;
-        int total=noticeService.getNoticenumber();
-        List noticelist=noticeService.selectAllNotice(startRecord,pageSzie);
-        Map resultMap=new HashMap();
-        resultMap.put("total",total-1);
-        resultMap.put("rows",noticelist);
+    public Map noticelist(@RequestParam("page") Integer page,
+                          @RequestParam("rows") Integer pageSzie,
+                          @RequestParam(required = false, value = "classifyId") Integer classifyId,
+                          @RequestParam(required = false, value = "title") String title) {
+
+        int startRecord = (page - 1) * pageSzie + 1;
+        int total = noticeService.getNoticenumber(classifyId, title);
+        List noticelist = noticeService.selectAllNotice(classifyId, title);
+        Map resultMap = new HashMap();
+        resultMap.put("total", total);
+        resultMap.put("rows", noticelist);
         return resultMap;
     }
 
@@ -73,22 +92,22 @@ public class NoticeController {
    */
     @PostMapping(value = "/noticelistFindAll")
     @ResponseBody
-    public List<Notice> noticelistFindAll(HttpServletRequest request){
-        List<Notice> noticelist= noticeService.noticelistFindAll();
+    public List<Notice> noticelistFindAll() {
+        List<Notice> noticelist = noticeService.noticelistFindAll();
         return noticelist;
     }
 
     //新增通知分类信息
     @ResponseBody
     @RequestMapping(value = "/noticeAdd", produces = {"application/json;charset=UTF-8"})
-    public String addNotice(  Notice notice,HttpSession session) {
+    public String addNotice(Notice notice, HttpSession session) {
 
         if (StringUtils.isEmpty(notice.getClassifyId())) {
             return "通知分类不能为空";
         }
 
         User user = (User) session.getAttribute(DmsConstants.SESSION_USER);
-        if(user==null){
+        if (user == null) {
             return "未登录，请先登录！";
         } else {
             notice.setApplicant(user.getName());
@@ -103,23 +122,6 @@ public class NoticeController {
 
     }
 
-    /**
-     * 修改通知分类信息
-     */
-    @PostMapping(value="/update")
-    @ResponseBody
-    public Map<String,String> update(Notice notice,HttpSession session){
-
-        Map<String,String> map=new HashMap<>();
-        try{
-            noticeService.update(notice);
-            map.put("success","true");
-        }catch (Exception e){
-            e.printStackTrace();
-            map.put("msg","请核对信息确保登录名唯一");
-        }
-        return map;
-    }
 
     /***
      * 删除通知分类信息返回map形式
@@ -127,19 +129,19 @@ public class NoticeController {
      */
     @PostMapping(value = "/remove_notice")//删除通知分类记录
     @ResponseBody
-    public Map<String,String> removeNotices(@RequestParam("id") Integer id,HttpSession session){
-        Map<String,String> result = new HashMap<>();
-        if(StringUtils.isEmpty(String.valueOf(id))){
-            result.put("msg","当前通知分类id为空");
+    public Map<String, String> removeNotices(@RequestParam("id") Integer id) {
+        Map<String, String> result = new HashMap<>();
+        if (StringUtils.isEmpty(String.valueOf(id))) {
+            result.put("msg", "当前通知分类id为空");
             return result;
         }
-        try{
+        try {
             noticeService.delete(id);
-            result.put("success","true");
-            System.out.println("删除Id: "+id);
-        }catch(Exception e) {
+            result.put("success", "true");
+            System.out.println("删除Id: " + id);
+        } catch (Exception e) {
             e.printStackTrace();
-            result.put("msg","Some errors occured.");
+            result.put("msg", "Some errors occured.");
         }
         return result;
     }
