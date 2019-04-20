@@ -20,7 +20,10 @@ public interface UserService {
      List<User> findAllUser(int pageNum, int pageSize);
 
      List<User> findAllUser(int pageNum, int pageSize, String building, String name);
-     /**
+
+    User getById(Integer id);
+
+    /**
       * 删除用户
       * */
      int  delete(String key);

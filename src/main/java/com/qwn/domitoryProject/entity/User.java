@@ -1,5 +1,8 @@
 package com.qwn.domitoryProject.entity;
 
+import com.baomidou.mybatisplus.annotations.TableName;
+
+@TableName("t_user_info")
 public class User {
 
     private Integer id;

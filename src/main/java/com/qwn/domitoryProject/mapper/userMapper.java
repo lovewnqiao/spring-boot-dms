@@ -1,5 +1,6 @@
 package com.qwn.domitoryProject.mapper;
 
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.qwn.domitoryProject.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 @Mapper
 @Component
-public interface userMapper {
+public interface userMapper extends BaseMapper<User> {
 
     //用户登录
     User userlogin(@Param("userId") String userId,@Param("password") String password);
@@ -41,7 +42,7 @@ public interface userMapper {
     //other
     int deleteByPrimaryKey(String userId);
 
-    int insert(User record);
+    Integer insert(User record);
 
     int insertSelective(User record);
 

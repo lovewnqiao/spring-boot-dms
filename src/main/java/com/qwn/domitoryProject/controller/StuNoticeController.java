@@ -19,7 +19,7 @@ public class StuNoticeController {
     @Autowired
     StuNoticeService stuNoticeService;
 
-    @RequestMapping("page/index")
+    @RequestMapping("noticeinfomation")
     public String index() {
         return "notice/stuIndex";
     }
@@ -33,8 +33,9 @@ public class StuNoticeController {
 
     @RequestMapping("list")
     @ResponseBody
-    public List<Map> list() {
-        return stuNoticeService.list();
+    public List<Map> list(@RequestParam(required = false, value = "classifyId") Integer classifyId,
+                          @RequestParam(required = false, value = "title") String title) {
+        return stuNoticeService.list(classifyId, title);
     }
 
 

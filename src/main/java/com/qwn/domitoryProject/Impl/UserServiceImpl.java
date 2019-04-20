@@ -11,29 +11,35 @@ import java.util.List;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
-
     //注入调用数据库操作mapper
     @Autowired
     private userMapper userMapper;// 出现编译报错 不影响 去掉方法   可以在settings里面的spring bean中设置一下
+
     /**
      * 添加用户
-     * */
+     */
     @Override
-    public int addUser(User user){
-     return  userMapper.insertSelective(user);
+    public int addUser(User user) {
+        return userMapper.insertSelective(user);
     }
+
     /***
      * 分页查询
      * */
-   @Override
-    public List<User> findAllUser(int pageNum, int pageSize){
-       PageHelper.startPage(pageNum, pageSize);
-       return userMapper.selectAllUser();
-   }
+    @Override
+    public List<User> findAllUser(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return userMapper.selectAllUser();
+    }
 
     @Override
     public List<User> findAllUser(int pageNum, int pageSize, String building, String name) {
         return userMapper.pagingQueryUser(building, name);
+    }
+
+    @Override
+    public User getById(Integer id) {
+        return userMapper.selectById(id);
     }
 
     /***
@@ -41,30 +47,33 @@ public class UserServiceImpl implements UserService {
      *
      */
     @Override
-    public int delete(String key){
+    public int delete(String key) {
 
-       return  userMapper.deleteByPrimaryKey(key);
-   }
+        return userMapper.deleteByPrimaryKey(key);
+    }
+
     /***
      *
      * 修改用户
      */
-   @Override
-    public int update(User user){
-       return userMapper.updateByPrimaryKeySelective(user);
-   }
+    @Override
+    public int update(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
+    }
 
     /**
      * 用户登录
-     * */
-    public User getUserById(User user){
+     */
+    public User getUserById(User user) {
 
         return userMapper.selectselectByKeyAndPassword(user);
-    };
+    }
+
+    ;
 
 
     @Override
-    public int getUsernumber(){
+    public int getUsernumber() {
         return userMapper.getUsernumber();
     }
 

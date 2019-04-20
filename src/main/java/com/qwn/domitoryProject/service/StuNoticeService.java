@@ -17,7 +17,7 @@ public class StuNoticeService {
         return noticeMapper.selectById(id);
     }
 
-    public List<Map> list() {
-        return noticeMapper.selectListByClassIfy(null, null);
+    public List<Map> list(Integer classifyId, String title) {
+        return noticeMapper.selectListByClassIfy(classifyId, title);
     }
 }

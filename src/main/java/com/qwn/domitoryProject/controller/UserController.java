@@ -50,6 +50,9 @@ public class UserController {
     //个人信息管理
     @RequestMapping(value = "/updateMyInfo", method = {RequestMethod.POST, RequestMethod.GET})
     public String updateMyInfo(HttpSession session) {
+        User user = ((User) session.getAttribute(DmsConstants.SESSION_USER));
+        User newUserInfo = userService.getById(user.getId());
+        session.setAttribute(DmsConstants.SESSION_USER, newUserInfo);
         return "/common/myInfo";
     }
 
@@ -62,8 +65,8 @@ public class UserController {
         int page = Integer.parseInt(request.getParameter("page"));
         int pageSzie = Integer.parseInt(request.getParameter("rows"));//pageSzie
         String building = request.getParameter("building");
-        if("-".equals(building)){
-            building=null;
+        if ("-".equals(building)) {
+            building = null;
         }
         String name = request.getParameter("name");
         int startRecord = (page - 1) * pageSzie + 1;

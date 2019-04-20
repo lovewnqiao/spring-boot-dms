@@ -49,6 +49,7 @@
 
     <div data-options="region:'center',title:'通知管理列表'">
         <table id="datagrid" class="easyui-datagrid" style="width:100%;height:100%"
+               toolbar="#dgtoolbar"
                url="/student/notice/list">
             <thead>
             <tr>
@@ -62,7 +63,16 @@
             </tr>
             </thead>
         </table>
-
+        <div id="dgtoolbar">
+            <div style="float: left">
+                <input id="notice_classify" style="width:100px"
+                       url="/classify/classifylistFindAll"
+                       valueField="id" textField="classifyName">
+                </input>
+                <input id="notice_title"></input>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-query" plain="true" onclick="informationQuery()">查询</a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -79,5 +89,34 @@
     function titleFormater(value, row, index) {
         console.log(row)
         return '<a href="/student/notice/page/detail?id=' + row.id + '">'+value+'</a>';
+    }
+
+    // 选择宿舍楼
+    $('#notice_classify').combobox({
+        formatter: function (row) {
+            console.log(row)
+            return row.classifyName;
+        }
+    });
+
+    /**
+     * 查询
+     */
+    function informationQuery(){
+        $("#datagrid").datagrid({
+            url: '/student/notice/list',
+            pagination: true,
+            pageSize: 15,
+            pageList: [5, 10, 15, 20],
+            queryParams: form2Json("searchform"),　　//关键之处,指定查询条件
+        })
+        //将表单数据转为json
+        function form2Json() {
+            // 宿舍楼
+            var classifyId =$('#notice_classify').combobox('getValue')
+            console.log('classifyId:'+classifyId)
+            var title=$('#notice_title').val();
+            return {"classifyId": classifyId,"title":title}
+        }
     }
 </script>
