@@ -1,6 +1,8 @@
 package com.qwn.domitoryProject.interceptor;
 
 import com.qwn.domitoryProject.constant.DmsConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,13 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class userLoginInterceptor implements HandlerInterceptor {
+    Logger log= LoggerFactory.getLogger(userLoginInterceptor.class);
     /*
      * 视图渲染之后的操作
      */
     @Override
     public void afterCompletion(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, Exception arg3) throws Exception {
 
-        System.out.println("执行到了afterCompletion方法");
+        log.debug("执行到了afterCompletion方法");
     }
 
     /*
@@ -26,7 +29,7 @@ public class userLoginInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2, ModelAndView arg3) throws Exception {
 
-        System.out.println("执行到了postHandle方法");
+        log.debug("执行到了postHandle方法");
     }
 
     /*
@@ -37,13 +40,12 @@ public class userLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 
-        System.out.println("执行到了preHandle方法");
-        System.out.println(obj);
+        log.info("执行到了preHandle方法");
 
         if (request.getSession().getAttribute(DmsConstants.SESSION_USER) == null) {
-
+            log.warn("[未登陆]，请登陆 url:{}",request.getRequestURL());
             //当被拦截器拦截时，页面跳转
-            response.sendRedirect("/user/loginHtml");
+            response.sendRedirect("/user/helloWord");
             return false;
         }
 

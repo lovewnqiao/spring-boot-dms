@@ -17,7 +17,12 @@ public class sessionInterceptor implements WebMvcConfigurer {
          * excludePathPatterns():添加不需要拦截的路径
          * 在括号中还可以使用集合的形式，如注释部分代码所示
          */
-        registry.addInterceptor(new userLoginInterceptor()).addPathPatterns("/user/queryAllUser").excludePathPatterns("/user/userLogin");
+        registry.addInterceptor(new userLoginInterceptor()).
+                excludePathPatterns("/user/managerLogin").
+                excludePathPatterns("/user/registerpage").
+                excludePathPatterns("/user/uregister").
+                excludePathPatterns("/user/userLogin").
+                excludePathPatterns("/user/helloWord");
 
           //举例：利用集合的形式
 //        List list = new ArrayList();
