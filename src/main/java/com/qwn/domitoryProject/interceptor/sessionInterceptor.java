@@ -18,6 +18,10 @@ public class sessionInterceptor implements WebMvcConfigurer {
          * 在括号中还可以使用集合的形式，如注释部分代码所示
          */
         registry.addInterceptor(new userLoginInterceptor()).
+                excludePathPatterns("/images/*").
+                excludePathPatterns("/js/*").
+                excludePathPatterns("/css/*").
+                excludePathPatterns("/login/*.html").
                 excludePathPatterns("/user/managerLogin").
                 excludePathPatterns("/user/registerpage").
                 excludePathPatterns("/user/uregister").

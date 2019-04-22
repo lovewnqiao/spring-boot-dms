@@ -42,11 +42,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency><!-- 热部署依赖 -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional> <!-- 这个需要为 true 热部署才有效 -->
-		</dependency>
+		<!--<dependency>&lt;!&ndash; 热部署依赖 &ndash;&gt;-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-devtools</artifactId>-->
+			<!--<optional>true</optional> &lt;!&ndash; 这个需要为 true 热部署才有效 &ndash;&gt;-->
+		<!--</dependency>-->
 
 
 		<!-- mysql -->

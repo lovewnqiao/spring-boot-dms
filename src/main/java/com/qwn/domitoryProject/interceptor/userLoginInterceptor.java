@@ -40,7 +40,7 @@ public class userLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object obj) throws Exception {
 
-        log.info("执行到了preHandle方法");
+//        log.info("执行到了preHandle方法");
 
         if (request.getSession().getAttribute(DmsConstants.SESSION_USER) == null) {
             log.warn("[未登陆]，请登陆 url:{}",request.getRequestURL());
