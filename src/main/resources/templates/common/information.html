@@ -4,6 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" xmlns:float="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
+    <title>学生管理页面</title>
     <link rel="stylesheet" type="text/css" href="/easyui/themes/default/easyui.css"/>
     <link rel="stylesheet" type="text/css" href="/easyui/themes/icon.css"/>
     <link rel="stylesheet" type="text/css" href="/easyui/demo/demo.css"/>
@@ -71,7 +72,7 @@
                        url="/user/building/names"
                        valueField="text" textField="text">
                 </input>
-                <input id="information_name"></input>
+                <input id="information_name" placeholder="姓名"></input>
                 <a href="#" class="easyui-linkbutton" iconCls="icon-query" plain="true" onclick="informationQuery()">查询</a>
             </div>
         </div>

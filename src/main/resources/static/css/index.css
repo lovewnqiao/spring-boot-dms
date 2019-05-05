@@ -9,7 +9,6 @@ body{ font-family:'微软雅黑';background:#2a83cf;}
 
 
 h1{ float: left; margin: 14px 0 0 24px; width: 57px; height: 86px; background: url(../images/ico07.png) no-repeat; background-size: 60px; position: relative; top: -4px;}
-/*h1{ float:left; margin:14px 0 0 24px; width:276px; height:71px; background:url(../images/logo.png);position:relative;top:-4px;}*/
 .login-info{ float:left; margin:38px 0 0 23px; height:18px;}
 .login-info .welcome{ float:left; padding-left:20px; width:90px; height:18px; line-height:18px; background:url(../images/topuser.png) no-repeat left bottom; font-size:14px; color:#fff;}
 .login-info .welcome span{ float:left;}

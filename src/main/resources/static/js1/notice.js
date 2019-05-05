@@ -1,10 +1,10 @@
-//通知分类信息修改
+//通知信息修改
 function editNotice(){
     //选中某一行
     var row = $('#datagrid').datagrid('getSelected');
     if (row){
-        $('#modifydg').dialog('open').dialog('setTitle','修改宿舍楼信息');
-        //显示未修改前的分类信息
+        $('#modifydg').dialog('open').dialog('setTitle','修改通知信息');
+        //显示未修改前的通知信息
         $('#fim').form('load',row);
     }
 }
