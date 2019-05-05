@@ -35,7 +35,7 @@
     <div data-options="region:'north'" style="width: 100%;height: 9%">
     </div>
 
-    <div data-options="region:'center',title:'通知分类信息列表'">
+    <div data-options="region:'center',title:'通知管理列表'">
         <table id="datagrid"  class="easyui-datagrid" style="width:100%;height:100%"
                url="/notice/noticelist"
                toolbar="#dgtoolbar" pagination="true"
@@ -52,7 +52,7 @@
             </thead>
         </table>
         <div id="dgtoolbar">
-            <a href="/notice/noticeAddPage" target="_blank">新增分类</a>
+            <a href="/notice/noticeAddPage" target="_blank">新增通知</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true" onclick="removeNotice()">删除通知</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="editNotice()">修改通知</a>
 
