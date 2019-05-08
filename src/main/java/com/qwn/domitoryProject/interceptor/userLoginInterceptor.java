@@ -45,7 +45,7 @@ public class userLoginInterceptor implements HandlerInterceptor {
         if (request.getSession().getAttribute(DmsConstants.SESSION_USER) == null) {
             log.warn("[未登陆]，请登陆 url:{}",request.getRequestURL());
             //当被拦截器拦截时，页面跳转
-            response.sendRedirect("/user/helloWord");
+            response.sendRedirect("/index");
             return false;
         }
 

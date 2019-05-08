@@ -25,6 +25,8 @@ public class sessionInterceptor implements WebMvcConfigurer {
                 excludePathPatterns("/user/managerLogin").
                 excludePathPatterns("/user/registerpage").
                 excludePathPatterns("/user/uregister").
+                excludePathPatterns("/").
+                excludePathPatterns("/index").
                 excludePathPatterns("/user/userLogin").
                 excludePathPatterns("/user/helloWord");
 
