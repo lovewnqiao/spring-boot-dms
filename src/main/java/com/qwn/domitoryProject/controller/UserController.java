@@ -33,12 +33,12 @@ public class UserController {
         return userService.delete(key);
     }
 
-    //修改学生信息
-    @ResponseBody
-    @RequestMapping(value = "/update", produces = {"application/json;charset=UTF-8"})
-    public int update(User user) {
-        return userService.update(user);
-    }
+//    //修改学生信息
+//    @ResponseBody
+//    @RequestMapping(value = "/update", produces = {"application/json;charset=UTF-8"})
+//    public int update(User user) {
+//        return userService.update(user);
+//    }
 
 
     //学生信息管理
@@ -149,13 +149,13 @@ public class UserController {
    */
     @PostMapping(value = "/update")
     @ResponseBody
-    public Map<String, String> update(@RequestParam("userId") String userId, @RequestParam("name") String name,
+    public Map update(@RequestParam("userId") String userId, @RequestParam("name") String name,
                                       @RequestParam("password") String password, @RequestParam("sex") String sex,
                                       @RequestParam("age") Integer age, @RequestParam("telephone") String telephone,
                                       @RequestParam("building") String building, @RequestParam("floor") String floor,
                                       @RequestParam("room") Integer room, HttpSession session) {
 
-        Map<String, String> map = new HashMap<>();
+        Map map = new HashMap<>();
         User user = new User();
         user.setUserId(userId);
         user.setPassword(password);
@@ -168,9 +168,12 @@ public class UserController {
         user.setRoom(room);
         try {
             userService.update(user);
-            map.put("success", "true");
+            map.put("success", true);
+            map.put("name", name);
         } catch (Exception e) {
             e.printStackTrace();
+            map.put("success", false);
+
             map.put("msg", "请核对信息确保登录名唯一");
         }
         return map;
